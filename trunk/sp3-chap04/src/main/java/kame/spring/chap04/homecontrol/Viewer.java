@@ -4,4 +4,5 @@ public interface Viewer {
 
 	void add(Camera camera1);
 
+	void draw();
 }

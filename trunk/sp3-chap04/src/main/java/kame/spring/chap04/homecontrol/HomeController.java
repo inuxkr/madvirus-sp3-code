@@ -3,6 +3,7 @@ package kame.spring.chap04.homecontrol;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,13 @@ public class HomeController {
 	@Resource(name = "camera3")
 	private Camera camera3;
 
-	@Resource(name = "camera4")
 	private Camera camera4;
 
 	private List<InfraredRaySensor> sensors;
+	
+	@Autowired
+	@Qualifier("main")
+	private Recorder recorder;
 
 	@Autowired
 	public void prepare(AlarmDevice alarmDevice, Viewer viewer) {
@@ -35,7 +39,7 @@ public class HomeController {
 		this.viewer = viewer;
 	}
 
-	@Autowired
+	@Autowired(required=false)
 	@Qualifier("intrusionDetection")
 	public void setSensors(List<InfraredRaySensor> sensors) {
 		this.sensors = sensors;
@@ -56,6 +60,7 @@ public class HomeController {
 		this.camera3 = camera3;
 	}
 
+	@Resource(name = "camera4")
 	public void setCamera4(Camera camera4) {
 		this.camera4 = camera4;
 	}
@@ -67,6 +72,11 @@ public class HomeController {
 		viewer.add(camera3);
 		viewer.add(camera4);
 	}
+	
+	@PreDestroy
+	public void close() {
+		
+	}
 
 	public void checkSensorAndAlarm() {
 		for (InfraredRaySensor sensor : sensors) {
@@ -74,5 +84,9 @@ public class HomeController {
 				alarmDevice.alarm(sensor.getName());
 			}
 		}
+	}
+	
+	public void showCameraImage() {
+		viewer.draw();
 	}
 }
