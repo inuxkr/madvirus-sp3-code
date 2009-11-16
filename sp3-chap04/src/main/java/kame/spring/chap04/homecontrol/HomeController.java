@@ -1,12 +1,15 @@
-package kame.spring.chap04;
+package kame.spring.chap04.homecontrol;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component("homeController")
 public class HomeController {
 
 	private AlarmDevice alarmDevice;
@@ -36,21 +39,33 @@ public class HomeController {
 	@Qualifier("intrusionDetection")
 	public void setSensors(List<InfraredRaySensor> sensors) {
 		this.sensors = sensors;
+		for (InfraredRaySensor sensor : sensors) {
+			System.out.println("센서 등록: " + sensor);
+		}
 	}
 
+	public void setCamera1(Camera camera1) {
+		this.camera1 = camera1;
+	}
+
+	public void setCamera2(Camera camera2) {
+		this.camera2 = camera2;
+	}
+
+	public void setCamera3(Camera camera3) {
+		this.camera3 = camera3;
+	}
+
+	public void setCamera4(Camera camera4) {
+		this.camera4 = camera4;
+	}
+
+	@PostConstruct
 	public void init() {
 		viewer.add(camera1);
 		viewer.add(camera2);
 		viewer.add(camera3);
 		viewer.add(camera4);
-	}
-
-	public void start() {
-
-	}
-
-	public void stop() {
-
 	}
 
 	public void checkSensorAndAlarm() {

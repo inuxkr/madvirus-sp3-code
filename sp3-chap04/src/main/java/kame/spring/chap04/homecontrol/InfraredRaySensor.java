@@ -1,4 +1,4 @@
-package kame.spring.chap04;
+package kame.spring.chap04.homecontrol;
 
 public class InfraredRaySensor {
 
@@ -19,6 +19,12 @@ public class InfraredRaySensor {
 
 	public void foundObject() {
 		objectFounded = true;
+	}
+
+	@Override
+	public String toString() {
+		return "InfraredRaySensor [name=" + name + ", objectFounded="
+				+ objectFounded + "]";
 	}
 
 }
