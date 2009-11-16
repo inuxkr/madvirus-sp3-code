@@ -2,5 +2,5 @@ package kame.spring.chap04;
 
 public interface AlarmDevice {
 
-	void alarm();
+	void alarm(String name);
 }
