@@ -9,8 +9,11 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:annotation-config />
+	<bean class="kame.spring.chap04.config.SpringConfigAutowired" />
 
-	<!--  
+	<!--
+	<context:annotation-config> 태그는 아래 빈을 등록해줌
+	
 	<bean
 		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
 
@@ -24,9 +27,10 @@
 		class="org.springframework.context.annotation.ConfigurationClassPostProcessor" />
 	-->
 	
-	<bean class="kame.spring.chap04.config.SpringConfigAutowired" />
 
 	<!--
+		아래 코드만 사용해도 동일하게 동작
+		
 		<context:component-scan base-package="kame.spring.chap04.config">
 	-->
 
