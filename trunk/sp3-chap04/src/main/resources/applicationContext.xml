@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--	<context:annotation-config />-->
+
+	<bean
+		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<bean id="monitor" class="kame.spring.chap04.SystemMonitor"
+		p:periodTime="10" p:sender-ref="smsSender" />
+
+	<bean id="smsSender" class="kame.spring.chap04.SmsSender" />
+
+	<bean id="sensor1" class="kame.spring.chap04.Sensor" />
+	<bean id="sensor2" class="kame.spring.chap04.Sensor" />
+	<bean id="sensor3" class="kame.spring.chap04.Sensor" />
+
+	<bean id="multipleSensorsMonitor" class="kame.spring.chap04.UsingMultipleSensorsMonitor" />
+</beans>
