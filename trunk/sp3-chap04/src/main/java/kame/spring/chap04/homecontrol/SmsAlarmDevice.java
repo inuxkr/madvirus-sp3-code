@@ -1,5 +1,8 @@
-package kame.spring.chap04;
+package kame.spring.chap04.homecontrol;
 
+import org.springframework.stereotype.Component;
+
+@Component("smsAlarmDevice")
 public class SmsAlarmDevice implements AlarmDevice {
 
 	@Override

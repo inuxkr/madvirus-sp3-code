@@ -1,5 +1,8 @@
-package kame.spring.chap04;
+package kame.spring.chap04.homecontrol;
 
+import org.springframework.stereotype.Component;
+
+@Component("viewer")
 public class MonitorViewer implements Viewer {
 
 	@Override

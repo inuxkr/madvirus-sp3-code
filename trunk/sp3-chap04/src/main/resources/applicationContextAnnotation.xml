@@ -8,6 +8,9 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:component-scan base-package="kame.spring.chap04.homecontrol">
+	</context:component-scan>
+
 	<!--	<context:annotation-config />-->
 
 	<bean
@@ -19,27 +22,31 @@
 	<bean
 		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
-	<bean id="camera1" class="kame.spring.chap04.Camera" p:number="1" />
-	<bean id="camera2" class="kame.spring.chap04.Camera" p:number="2" />
-	<bean id="camera3" class="kame.spring.chap04.Camera" p:number="3" />
-	<bean id="camera4" class="kame.spring.chap04.Camera" p:number="4" />
+	<bean id="camera1" class="kame.spring.chap04.homecontrol.Camera" p:number="1" />
+	<bean id="camera2" class="kame.spring.chap04.homecontrol.Camera" p:number="2" />
+	<bean id="camera3" class="kame.spring.chap04.homecontrol.Camera" p:number="3" />
+	<bean id="camera4" class="kame.spring.chap04.homecontrol.Camera" p:number="4" />
 
-	<bean id="windowSensor" class="kame.spring.chap04.InfraredRaySensor">
+	<bean id="windowSensor" class="kame.spring.chap04.homecontrol.InfraredRaySensor">
 		<constructor-arg value="창 센서" />
 		<qualifier value="intrusionDetection" />
 	</bean>
 
-	<bean id="doorSensor" class="kame.spring.chap04.InfraredRaySensor">
+	<bean id="doorSensor" class="kame.spring.chap04.homecontrol.InfraredRaySensor">
 		<constructor-arg value="현관 센서" />
 		<qualifier value="intrusionDetection" />
 	</bean>
 
-	<bean id="monitor" class="kame.spring.chap04.MonitorViewer" />
+	<bean id="lampSensor" class="kame.spring.chap04.homecontrol.InfraredRaySensor">
+		<constructor-arg value="전등 센서" />
+	</bean>
 
-	<bean id="smsAlarmDevice" class="kame.spring.chap04.SmsAlarmDevice" />
+<!--	<bean id="monitor" class="kame.spring.chap04.homecontrol.MonitorViewer" />-->
 
-	<bean id="viewer" class="kame.spring.chap04.MonitorViewer" />
+<!--	<bean id="smsAlarmDevice" class="kame.spring.chap04.homecontrol.SmsAlarmDevice" />-->
 
-	<bean id="homeController" class="kame.spring.chap04.HomeController"
-		init-method="init" />
+<!--	<bean id="viewer" class="kame.spring.chap04.homecontrol.MonitorViewer" />-->
+
+<!--	<bean id="homeController" class="kame.spring.chap04.homecontrol.HomeController"-->
+<!--		init-method="init" />-->
 </beans>

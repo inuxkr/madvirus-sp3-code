@@ -1,4 +1,4 @@
-package kame.spring.chap04;
+package kame.spring.chap04.homecontrol;
 
 import org.springframework.beans.factory.annotation.Required;
 
