@@ -5,6 +5,8 @@ import java.util.List;
 
 import kame.spring.chap04.homecontrol.AlarmDevice;
 import kame.spring.chap04.homecontrol.Camera;
+import kame.spring.chap04.homecontrol.DefaultDisplayStrategy;
+import kame.spring.chap04.homecontrol.DisplayStrategy;
 import kame.spring.chap04.homecontrol.HomeController;
 import kame.spring.chap04.homecontrol.InfraredRaySensor;
 import kame.spring.chap04.homecontrol.MonitorViewer;
@@ -56,7 +58,14 @@ public class SpringConfig {
 	
 	@Bean
 	public Viewer viewer() {
-		return new MonitorViewer();
+		MonitorViewer viewer = new MonitorViewer();
+		viewer.setDisplayStrategy(displayStrategy());
+		return viewer;
+	}
+	
+	@Bean
+	public DisplayStrategy displayStrategy() {
+		return new DefaultDisplayStrategy();
 	}
 	
 	@Bean(initMethod="init")
