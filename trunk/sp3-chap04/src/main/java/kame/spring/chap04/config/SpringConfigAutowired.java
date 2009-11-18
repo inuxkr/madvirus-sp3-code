@@ -2,9 +2,12 @@ package kame.spring.chap04.config;
 
 import kame.spring.chap04.homecontrol.AlarmDevice;
 import kame.spring.chap04.homecontrol.Camera;
+import kame.spring.chap04.homecontrol.DefaultDisplayStrategy;
+import kame.spring.chap04.homecontrol.DisplayStrategy;
 import kame.spring.chap04.homecontrol.HomeController;
 import kame.spring.chap04.homecontrol.InfraredRaySensor;
 import kame.spring.chap04.homecontrol.MonitorViewer;
+import kame.spring.chap04.homecontrol.Recorder;
 import kame.spring.chap04.homecontrol.SmsAlarmDevice;
 import kame.spring.chap04.homecontrol.Viewer;
 
@@ -63,5 +66,16 @@ public class SpringConfigAutowired {
 	@Bean
 	public HomeController homeController() {
 		return new HomeController();
+	}
+	
+	@Bean
+	@Qualifier("main")
+	public Recorder recorder() {
+		return new Recorder();
+	}
+	
+	@Bean
+	public DisplayStrategy displayStrategy() {
+		return new DefaultDisplayStrategy();
 	}
 }

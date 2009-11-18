@@ -28,10 +28,12 @@ public class HomeController {
 	private Camera camera4;
 
 	private List<InfraredRaySensor> sensors;
-	
+
 	@Autowired
 	@Qualifier("main")
 	private Recorder recorder;
+
+	private DisplayStrategy displayStrategy;
 
 	@Autowired
 	public void prepare(AlarmDevice alarmDevice, Viewer viewer) {
@@ -39,7 +41,7 @@ public class HomeController {
 		this.viewer = viewer;
 	}
 
-	@Autowired(required=false)
+	@Autowired(required = false)
 	@Qualifier("intrusionDetection")
 	public void setSensors(List<InfraredRaySensor> sensors) {
 		this.sensors = sensors;
@@ -65,6 +67,15 @@ public class HomeController {
 		this.camera4 = camera4;
 	}
 
+	public void setRecorder(Recorder recorder) {
+		this.recorder = recorder;
+	}
+
+	@Resource(name = "displayStrategy")
+	public void setDisplayStrategy(DisplayStrategy displayStrategy) {
+		this.displayStrategy = displayStrategy;
+	}
+
 	@PostConstruct
 	public void init() {
 		viewer.add(camera1);
@@ -72,10 +83,10 @@ public class HomeController {
 		viewer.add(camera3);
 		viewer.add(camera4);
 	}
-	
+
 	@PreDestroy
 	public void close() {
-		
+
 	}
 
 	public void checkSensorAndAlarm() {
@@ -85,7 +96,7 @@ public class HomeController {
 			}
 		}
 	}
-	
+
 	public void showCameraImage() {
 		viewer.draw();
 	}
