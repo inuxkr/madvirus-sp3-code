@@ -10,12 +10,15 @@ import kame.spring.chap04.homecontrol.DisplayStrategy;
 import kame.spring.chap04.homecontrol.HomeController;
 import kame.spring.chap04.homecontrol.InfraredRaySensor;
 import kame.spring.chap04.homecontrol.MonitorViewer;
-import kame.spring.chap04.homecontrol.Recorder;
 import kame.spring.chap04.homecontrol.SmsAlarmDevice;
 import kame.spring.chap04.homecontrol.Viewer;
+import kame.spring.chap04.work.Executor;
+import kame.spring.chap04.work.Worker;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 @Configuration
 public class SpringConfig {
@@ -69,11 +72,6 @@ public class SpringConfig {
 		return new DefaultDisplayStrategy();
 	}
 	
-	@Bean
-	public Recorder recorder() {
-		return new Recorder();
-	}
-	
 	@Bean(initMethod="init")
 	public HomeController homeController() {
 		HomeController homeController = new HomeController();
@@ -84,14 +82,25 @@ public class SpringConfig {
 		homeController.setSensors(sensors);
 		
 		homeController.prepare(alarmDevice(), viewer());
+		
 		homeController.setCamera1(camera1());
 		homeController.setCamera2(camera2());
 		homeController.setCamera3(camera3());
 		homeController.setCamera4(camera4());
-
-		homeController.setRecorder(recorder());
-		homeController.setDisplayStrategy(displayStrategy());
 		
 		return homeController;
+	}
+
+	@Bean
+	public Executor executor() {
+		Executor executor = new Executor();
+		executor.setWorker(worker());
+		return executor;
+	}
+	
+	@Bean
+	@Scope(value="prototype", proxyMode=ScopedProxyMode.TARGET_CLASS)
+	public Worker worker() {
+		return new Worker();
 	}
 }
