@@ -2,7 +2,7 @@ package kame.spring.chap05.aop.pojo;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 
-public class PerformanceTraceAdvice {
+public class ProfilingAdvice {
 
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 		long start = System.currentTimeMillis();
