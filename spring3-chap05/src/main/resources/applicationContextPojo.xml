@@ -8,19 +8,20 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<bean id="performanceTraceAdvice" class="kame.spring.chap05.aop.pojo.PerformanceTraceAdvice" />
+	<bean id="performanceTraceAdvice" class="kame.spring.chap05.aop.pojo.ProfilingAdvice" />
 
 	<aop:config>
 		
 	</aop:config>
 	
-	<bean name="writeArticleService"
+	<bean id="writeArticleService"
 		class="kame.spring.chap05.board.service.WriteArticleServiceImpl">
 		<constructor-arg>
 			<ref bean="articleDao" />
 		</constructor-arg>
 	</bean>
 
-	<bean name="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
+	<bean id="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
 
+	<bean id="memberService" class="kame.spring.chap05.member.MemberServiceImpl" />
 </beans>
