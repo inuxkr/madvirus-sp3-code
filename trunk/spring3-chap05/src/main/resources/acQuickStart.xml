@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/aop
@@ -11,9 +10,13 @@
 	<bean id="performanceTraceAdvice" class="kame.spring.chap05.aop.pojo.ProfilingAdvice" />
 
 	<aop:config>
-		
+		<aop:aspect id="traceAspect" ref="performanceTraceAdvice">
+			<aop:pointcut id="publicMethod"
+				expression="execution(public * kame.spring.chap05..*(..))" />
+			<aop:around pointcut-ref="publicMethod" method="trace" />
+		</aop:aspect>
 	</aop:config>
-	
+
 	<bean id="writeArticleService"
 		class="kame.spring.chap05.board.service.WriteArticleServiceImpl">
 		<constructor-arg>
@@ -23,5 +26,5 @@
 
 	<bean id="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
 
-	<bean id="memberService" class="kame.spring.chap05.member.MemberServiceImpl" />
+	<bean id="memberService" class="kame.spring.chap05.member.service.MemberServiceImpl" />
 </beans>
