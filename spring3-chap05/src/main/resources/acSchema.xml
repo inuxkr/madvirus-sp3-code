@@ -24,7 +24,7 @@
 
 		<aop:aspect id="cacheAspect" ref="cacheAdvice" order="2">
 			<aop:around
-				pointcut="execution(public* kame.spring.chap05.board.service.ReadArticleService.*(..))"
+				pointcut="execution(public * *..ReadArticleService.*(..))"
 				method="cache" />
 		</aop:aspect>
 	</aop:config>
