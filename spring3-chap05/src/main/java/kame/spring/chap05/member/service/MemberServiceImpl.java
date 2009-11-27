@@ -1,4 +1,6 @@
-package kame.spring.chap05.member;
+package kame.spring.chap05.member.service;
+
+import kame.spring.chap05.member.Member;
 
 public class MemberServiceImpl implements MemberService {
 

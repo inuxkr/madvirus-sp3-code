@@ -7,6 +7,9 @@ public class WriteArticleServiceImpl implements WriteArticleService {
 
     private ArticleDao articleDao;
 
+    public WriteArticleServiceImpl() {
+    }
+    
     public WriteArticleServiceImpl(ArticleDao articleDao) {
         this.articleDao = articleDao;
     }
