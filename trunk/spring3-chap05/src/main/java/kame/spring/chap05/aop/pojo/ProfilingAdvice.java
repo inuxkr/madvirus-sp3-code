@@ -13,10 +13,9 @@ public class ProfilingAdvice {
 			return result;
 		} finally {
 			long finish = System.currentTimeMillis();
-			System.out
-					.println(signatureString + " 종료");
-			System.out.println(signatureString
-					+ " 실행 시간 : " + (finish - start) + "ms");
+			System.out.println(signatureString + " 종료");
+			System.out.println(signatureString + " 실행 시간 : " + (finish - start)
+					+ "ms");
 		}
 	}
 }
