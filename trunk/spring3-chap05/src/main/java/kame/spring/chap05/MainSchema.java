@@ -3,6 +3,8 @@ package kame.spring.chap05;
 import kame.spring.chap05.board.Article;
 import kame.spring.chap05.board.service.ArticleNotFoundException;
 import kame.spring.chap05.board.service.ReadArticleService;
+import kame.spring.chap05.member.service.MemberService;
+import kame.spring.chap05.member.service.UpdateInfo;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,5 +28,9 @@ public class MainSchema {
 			readArticleService.getArticleAndIncreaseReadCount(0);
 		} catch (ArticleNotFoundException e) {
 		}
+
+		MemberService memberService = context.getBean("memberService",
+				MemberService.class);
+		memberService.update("madvirus", new UpdateInfo());
 	}
 }

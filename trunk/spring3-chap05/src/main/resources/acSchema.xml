@@ -8,9 +8,8 @@
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<bean id="loggingAdvice" class="kame.spring.chap05.aop.pojo.LoggingAdvice" />
-	<bean id="loggingAdviceWithParam" class="kame.spring.chap05.aop.pojo.LoggingAdviceWithParam" />
-
 	<bean id="cacheAdvice" class="kame.spring.chap05.aop.pojo.ArticleCacheAdvice" />
+	<bean id="traceAdvice" class="kame.spring.chap05.aop.pojo.UpdateMemberInfoTraceAdvice" />
 
 	<aop:config>
 		<aop:aspect id="loggingAspect" ref="loggingAdvice" order="1">
@@ -27,7 +26,16 @@
 				pointcut="execution(public * *..ReadArticleService.*(..))"
 				method="cache" />
 		</aop:aspect>
+		
+		<aop:aspect id="traceAspect" ref="traceAdvice">
+			<aop:after-returning
+				pointcut="execution(public * *..MemberService.update(..)) and args(memberId,info)"
+				method="traceReturn"
+				returning="result" />
+		</aop:aspect>
 	</aop:config>
 
 	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
+	
+	<bean id="memberService" class="kame.spring.chap05.member.service.MemberServiceImpl" />
 </beans>
