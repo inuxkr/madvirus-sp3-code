@@ -31,7 +31,8 @@
 			<aop:after-returning
 				pointcut="execution(public * *..MemberService.update(..)) and args(memberId,info)"
 				method="traceReturn"
-				returning="result" />
+				returning="result"
+				arg-names="joinPoint,result,memberId,info" />
 		</aop:aspect>
 	</aop:config>
 
