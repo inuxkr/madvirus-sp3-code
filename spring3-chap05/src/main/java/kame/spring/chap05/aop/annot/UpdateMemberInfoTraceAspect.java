@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
-public class UpdateMemberInfoTraceAdvice {
+public class UpdateMemberInfoTraceAspect {
 
 	@AfterReturning(
 			pointcut="args(memberId,info)",

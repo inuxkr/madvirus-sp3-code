@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 @Aspect
-public class LoggingAdvice {
+public class LoggingAspect {
 
 	@Before("kame.spring.chap05.aop.annot.PublicPointcut.publicMethod()")
 	public void before() {

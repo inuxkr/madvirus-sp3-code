@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
-public class ArticleCacheAdvice {
+public class ArticleCacheAspect {
 
 	private Map<Integer, Article> cache = new HashMap<Integer, Article>();
 
