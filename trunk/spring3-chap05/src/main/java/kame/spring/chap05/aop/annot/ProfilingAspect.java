@@ -1,9 +1,17 @@
 package kame.spring.chap05.aop.annot;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
-public class ProfilingAdvice {
+@Aspect
+public class ProfilingAspect {
 
+	@Pointcut("execution(public * kame.spring.chap05.board..*(..))")
+	private void profileTarget() {}
+	
+	@Around("profileTarget()")
 	public Object trace(ProceedingJoinPoint joinPoint) throws Throwable {
 		String signatureString = joinPoint.getSignature().toShortString();
 		System.out.println(signatureString + " Ω√¿€");
