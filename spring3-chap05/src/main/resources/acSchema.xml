@@ -12,7 +12,7 @@
 	<bean id="traceAdvice" class="kame.spring.chap05.aop.pojo.UpdateMemberInfoTraceAdvice" />
 
 	<aop:config>
-		<aop:aspect id="loggingAspect" ref="loggingAdvice" order="1">
+		<aop:aspect id="loggingAspect" ref="loggingAdvice" order="3">
 			<aop:pointcut id="publicMethod"
 				expression="execution(public * kame.spring.chap05..*(..))" />
 			<aop:before method="before" pointcut-ref="publicMethod" />
@@ -27,11 +27,12 @@
 				method="cache" />
 		</aop:aspect>
 		
-		<aop:aspect id="traceAspect" ref="traceAdvice">
+		<aop:aspect id="traceAspect" ref="traceAdvice" order="1">
 			<aop:after-returning
 				pointcut="args(memberId,info)"
 				method="traceReturn"
-				 />
+				returning="result"
+				arg-names="joinPoint,result,memberId,info" />
 		</aop:aspect>
 	</aop:config>
 

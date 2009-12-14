@@ -8,9 +8,10 @@ import kame.spring.chap05.board.Article;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.Ordered;
 
 @Aspect
-public class ArticleCacheAspect {
+public class ArticleCacheAspect implements Ordered {
 
 	private Map<Integer, Article> cache = new HashMap<Integer, Article>();
 
@@ -28,5 +29,10 @@ public class ArticleCacheAspect {
 			System.out.println("[ACA] 캐시에 Article[" + id + "] 추가함");
 		}
 		return ret;
+	}
+
+	@Override
+	public int getOrder() {
+		return 2;
 	}
 }
