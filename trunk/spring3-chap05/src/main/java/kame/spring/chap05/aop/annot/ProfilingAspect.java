@@ -4,8 +4,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 
 @Aspect
+@Order(3)
 public class ProfilingAspect {
 
 	@Pointcut("execution(public * kame.spring.chap05.board..*(..))")

@@ -8,9 +8,9 @@
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<aop:aspectj-autoproxy />
-	<bean id="loggingAspect" class="kame.spring.chap05.aop.annot.LoggingAspect" />
-	<bean id="cacheAspect" class="kame.spring.chap05.aop.annot.ArticleCacheAspect" />
 	<bean id="traceAspect" class="kame.spring.chap05.aop.annot.UpdateMemberInfoTraceAspect" />
+	<bean id="cacheAspect" class="kame.spring.chap05.aop.annot.ArticleCacheAspect" />
+	<bean id="loggingAspect" class="kame.spring.chap05.aop.annot.LoggingAspect" />
 	
 	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
 	
