@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Before;
 @Aspect
 public class LoggingAspect {
 
-	@Before("kame.spring.chap05.aop.annot.PublicPointcut.publicMethod()")
+	@Before("PublicPointcut.publicMethod()")
 	public void before() {
 		System.out.println("[LA] 메서드 실행 전 전처리 수행");
 	}
