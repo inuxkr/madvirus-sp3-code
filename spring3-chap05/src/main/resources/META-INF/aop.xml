@@ -6,7 +6,8 @@
 
 <aspectj>
 	<weaver>
-		<include within="kame.spring.chap05.board..*" />
+		<include within="kame.spring.chap05.board.service.*" />
+		<include within="kame.spring.chap05.board.Article" />
 	</weaver>
 	
 	<aspects>

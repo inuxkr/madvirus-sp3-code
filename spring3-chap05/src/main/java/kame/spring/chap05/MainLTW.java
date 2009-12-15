@@ -25,5 +25,8 @@ public class MainLTW {
 		
 		Article article = new Article();
 		article.increaseReadCount();
+		System.out.println("-----");
+		article = new Article();
+		article.increaseReadCount();
 	}
 }
