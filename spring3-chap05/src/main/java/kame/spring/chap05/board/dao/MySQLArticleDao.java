@@ -9,4 +9,9 @@ public class MySQLArticleDao implements ArticleDao {
 		System.out.println("MySQLArticleDao.insert() 실행");
 	}
 
+	@Override
+	public void updateReadCount(int articleId, int inc) {
+		System.out.println("MySQLArticleDao.updateReadCount() 실행");
+	}
+
 }

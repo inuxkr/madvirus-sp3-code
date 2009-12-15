@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE aspectj PUBLIC 
+	"-//AspectJ//DTD//EN"
+	"http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+
+<aspectj>
+	<weaver>
+		<include within="kame.spring.chap05.board..*" />
+	</weaver>
+	
+	<aspects>
+		<aspect name="kame.spring.chap05.aop.annot.ProfilingAspect"/>
+	</aspects>
+</aspectj>
