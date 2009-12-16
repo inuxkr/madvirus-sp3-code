@@ -23,5 +23,7 @@
 
 	<bean id="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
 
-	<bean class="kame.spring.chap05.board.Article" p:articleDao-ref="articleDao"  />
+	<bean id="articleConfig" class="kame.spring.chap05.board.Article">
+		<property name="articleDao" ref="articleDao" />
+	</bean>
 </beans>
