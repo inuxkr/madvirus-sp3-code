@@ -4,7 +4,7 @@ import kame.spring.chap05.board.dao.ArticleDao;
 
 import org.springframework.beans.factory.annotation.Configurable;
 
-@Configurable
+@Configurable("articleConfig")
 public class Article {
 
 	private int id;
