@@ -11,7 +11,7 @@
 
 	<context:load-time-weaver />
 	<context:spring-configured />
-
+	
 	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
 
 	<bean id="writeArticleService"
@@ -23,7 +23,7 @@
 
 	<bean id="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
 
-	<bean id="articleConfig" class="kame.spring.chap05.board.Article">
+	<bean class="kame.spring.chap05.board.Article">
 		<property name="articleDao" ref="articleDao" />
 	</bean>
 </beans>
