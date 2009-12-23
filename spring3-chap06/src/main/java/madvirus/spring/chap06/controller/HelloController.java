@@ -1,4 +1,4 @@
-package kame.spring.chap06.controller;
+package madvirus.spring.chap06.controller;
 
 import java.util.Calendar;
 
