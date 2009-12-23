@@ -5,16 +5,16 @@
 	<artifactId>spring3-chap03</artifactId>
 	<version>1.0.0</version>
 
-	<repositories>
-		<repository>
-			<id>spring-milestone</id>
-			<name>Spring Portfolio Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-		</repository>
-	</repositories>
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>spring-milestone</id>-->
+<!--			<name>Spring Portfolio Milestone Repository</name>-->
+<!--			<url>http://maven.springframework.org/milestone</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 
 	<properties>
-		<spring-version>3.0.0.RC3</spring-version>
+		<spring-version>3.0.0.RELEASE</spring-version>
 	</properties>
 
 	<dependencies>
