@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -10,6 +10,11 @@
 
 	<bean id="helloController" class="madvirus.spring.chap06.controller.HelloController" />
 
+	<bean id="newArticleController" class="madvirus.spring.chap06.controller.NewArticleController"
+		p:articleService-ref="articleService" />
+	
+	<bean id="articleService" class="madvirus.spring.chap06.service.ArticleService" />
+		
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
