@@ -151,6 +151,15 @@
 				<version>6.1.10</version>
 				<configuration>
 					<contextPath>/chap06</contextPath>
+					<scanIntervalSeconds>3</scanIntervalSeconds>
+					<scanTargetPatterns>
+						<scanTargetPattern>
+							<directory>src/main/webapp/WEB-INF</directory>
+							<includes>
+								<include>*-servlet.xml</include>
+							</includes>
+						</scanTargetPattern>
+					</scanTargetPatterns>
 				</configuration>
 			</plugin>
 			<plugin>

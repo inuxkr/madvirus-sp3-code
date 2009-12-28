@@ -14,7 +14,13 @@
 		p:articleService-ref="articleService" />
 	
 	<bean id="articleService" class="madvirus.spring.chap06.service.ArticleService" />
-		
+	
+	<bean id="searchController" class="madvirus.spring.chap06.controller.SearchController" />
+	
+	<bean id="cookieController" class="madvirus.spring.chap06.controller.CookieController" />
+	
+	<bean class="madvirus.spring.chap06.controller.HeaderController" />
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
