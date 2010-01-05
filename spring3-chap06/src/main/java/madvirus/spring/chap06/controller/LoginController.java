@@ -1,12 +1,17 @@
 package madvirus.spring.chap06.controller;
 
+import javax.validation.Valid;
+
 import madvirus.spring.chap06.service.AuthenticationException;
-import madvirus.spring.chap06.service.LoginCommand;
 import madvirus.spring.chap06.service.Authenticator;
+import madvirus.spring.chap06.service.LoginCommand;
 import madvirus.spring.chap06.validator.LoginCommandValidator;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,9 +27,13 @@ public class LoginController {
 		return formViewName;
 	}
 
+	@ModelAttribute
+	public LoginCommand formBacking() {
+		return new LoginCommand();
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
-	public String submit(LoginCommand loginCommand, BindingResult result) {
-		new LoginCommandValidator().validate(loginCommand, result);
+	public String submit(@Valid LoginCommand loginCommand, BindingResult result) {
 		if (result.hasErrors()) {
 			return formViewName;
 		}
@@ -36,6 +45,11 @@ public class LoginController {
 					.getUserId() }, null);
 			return formViewName;
 		}
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new LoginCommandValidator());
 	}
 
 	public void setAuthenticator(Authenticator loginService) {
