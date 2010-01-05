@@ -31,6 +31,12 @@
 	<bean class="madvirus.spring.chap06.controller.GameInfoController" />
 	<bean class="madvirus.spring.chap06.controller.CharacterInfoController" />
 
+	<bean id="authenticator" class="madvirus.spring.chap06.service.MockAuthenticator" />
+
+	<bean class="madvirus.spring.chap06.controller.LoginController">
+		<property name="authenticator" ref="authenticator" />
+	</bean>
+
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
 		p:alwaysUseFullPath="true" />
