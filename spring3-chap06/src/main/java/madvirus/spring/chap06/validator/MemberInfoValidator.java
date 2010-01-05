@@ -17,26 +17,29 @@ public class MemberInfoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		MemberInfo memberInfo = (MemberInfo) target;
 		if (memberInfo.getId() == null || memberInfo.getId().trim().isEmpty()) {
-			errors.rejectValue("id", "id.required");
+			errors.rejectValue("id", "required");
 		}
 		if (memberInfo.getName() == null
 				|| memberInfo.getName().trim().isEmpty()) {
-			errors.rejectValue("name", "name.required");
+			errors.rejectValue("name", "required");
 		}
 		Address address = memberInfo.getAddress();
 		if (address == null) {
-			errors.rejectValue("address", "address.required");
+			errors.rejectValue("address", "required");
 		}
 		if (address != null) {
-			if (address.getZipcode() == null
-					|| address.getZipcode().trim().isEmpty()) {
-				errors.rejectValue("address.zipcode",
-						"address.zipcode.required");
-			}
-			if (address.getAddress1() == null
-					|| address.getAddress1().trim().isEmpty()) {
-				errors.rejectValue("address.address1",
-						"address.address1.required");
+			errors.pushNestedPath("address");
+			try {
+				if (address.getZipcode() == null
+						|| address.getZipcode().trim().isEmpty()) {
+					errors.rejectValue("zipcode", "required");
+				}
+				if (address.getAddress1() == null
+						|| address.getAddress1().trim().isEmpty()) {
+					errors.rejectValue("address1", "required");
+				}
+			} finally {
+				errors.popNestedPath();
 			}
 		}
 	}

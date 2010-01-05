@@ -8,6 +8,7 @@
 </head>
 <body>
 <spring:hasBindErrors name="command" />
+<form:errors path="command" />
 <form method="post">
 	¾ÆÀÌµð: <input type="text" name="id" value="${command.id}" />
 	<form:errors path="command.id" />
