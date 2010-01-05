@@ -33,7 +33,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submit(@Valid LoginCommand loginCommand, BindingResult result) {
+	public String submit(@Valid LoginCommand loginCommand, 
+			BindingResult result) {
 		if (result.hasErrors()) {
 			return formViewName;
 		}
