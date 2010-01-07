@@ -8,9 +8,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
-	
+
 	<bean id="helloController" class="madvirus.spring.chap06.controller.HelloController" />
 
 	<bean id="newArticleController" class="madvirus.spring.chap06.controller.NewArticleController"
@@ -39,6 +40,8 @@
 	<bean class="madvirus.spring.chap06.controller.LoginController">
 		<property name="authenticator" ref="authenticator" />
 	</bean>
+
+	<bean class="madvirus.spring.chap06.controller.ReportSubmissionController" />
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
