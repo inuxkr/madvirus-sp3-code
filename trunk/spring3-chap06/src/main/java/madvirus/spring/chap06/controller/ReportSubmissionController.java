@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class ReportSubmissionController {
 
-	@RequestMapping(value = "/report/submission", method = RequestMethod.GET)
+	@RequestMapping(value = "/report/submission.do", method = RequestMethod.GET)
 	public String form() {
 		return "report/submissionForm";
 	}
@@ -20,11 +20,12 @@ public class ReportSubmissionController {
 			@RequestParam("studentNumber") String studentNumber,
 			@RequestParam("report") MultipartFile report) {
 		printInfo(studentNumber, report);
-		return "report/sumitted";
+		return "report/submissionComplete";
 	}
 
 	private void printInfo(String studentNumber, MultipartFile report) {
-		System.out.println(studentNumber+"가 업로드 한 파일: " + report.getOriginalFilename());
+		System.out.println(studentNumber + "가 업로드 한 파일: "
+				+ report.getOriginalFilename());
 	}
 
 	@RequestMapping(value = "/report/submitReport2.do", method = RequestMethod.POST)
@@ -32,12 +33,13 @@ public class ReportSubmissionController {
 		String studentNumber = request.getParameter("studentNumber");
 		MultipartFile report = request.getFile("report");
 		printInfo(studentNumber, report);
-		return "report/sumitted";
+		return "report/submissionComplete";
 	}
 
-	@RequestMapping(value = "/report/submitReport2.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/report/submitReport3.do", method = RequestMethod.POST)
 	public String submitReport3(ReportCommand reportCommand) {
 		printInfo(reportCommand.getStudentNumber(), reportCommand.getReport());
-		return "report/sumitted";
+		return "report/submissionComplete";
 	}
+	
 }
