@@ -7,6 +7,7 @@ import madvirus.spring.chap06.service.Authenticator;
 import madvirus.spring.chap06.service.LoginCommand;
 import madvirus.spring.chap06.validator.LoginCommandValidator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 
 	private String formViewName = "login/form";
+	
+	@Autowired
 	private Authenticator authenticator;
 
 	@RequestMapping(method = RequestMethod.GET)

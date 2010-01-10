@@ -8,46 +8,17 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<context:component-scan base-package="madvirus.spring.chap06.controller" />
+
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
-	<bean id="helloController" class="madvirus.spring.chap06.controller.HelloController" />
-
-	<bean id="newArticleController" class="madvirus.spring.chap06.controller.NewArticleController"
-		p:articleService-ref="articleService" />
-
 	<bean id="articleService" class="madvirus.spring.chap06.service.ArticleService" />
-
-	<bean id="searchController" class="madvirus.spring.chap06.controller.SearchController" />
-
-	<bean id="cookieController" class="madvirus.spring.chap06.controller.CookieController" />
-
-	<bean class="madvirus.spring.chap06.controller.HeaderController" />
-
-	<bean class="madvirus.spring.chap06.controller.GameSearchController"
-		p:searchService-ref="searchService" />
 
 	<bean id="searchService" class="madvirus.spring.chap06.service.SearchService" />
 
-	<bean class="madvirus.spring.chap06.controller.CreateAccountController" />
-
-	<bean class="madvirus.spring.chap06.controller.GameInfoController" />
-	<bean class="madvirus.spring.chap06.controller.CharacterInfoController" />
-
 	<bean id="authenticator" class="madvirus.spring.chap06.service.MockAuthenticator" />
-
-	<bean class="madvirus.spring.chap06.controller.LoginController">
-		<property name="authenticator" ref="authenticator" />
-	</bean>
-
-	<bean class="madvirus.spring.chap06.controller.ReportSubmissionController" />
-
-	<bean class="madvirus.spring.chap06.controller.QueryLogController" />
-
-	<bean class="madvirus.spring.chap06.controller.EventController" />
-
-	<bean class="madvirus.spring.chap06.controller.ArithmeticOperatorController" />
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
