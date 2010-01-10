@@ -43,13 +43,48 @@
 
 	<bean class="madvirus.spring.chap06.controller.ReportSubmissionController" />
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
-		p:alwaysUseFullPath="true" />
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
-		p:alwaysUseFullPath="true" />
+	<bean class="madvirus.spring.chap06.controller.QueryLogController" />
 
+	<bean class="madvirus.spring.chap06.controller.EventController" />
+
+	<bean class="madvirus.spring.chap06.controller.ArithmeticOperatorController" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="alwaysUseFullPath" value="true" />
+		<property name="interceptors">
+			<list>
+				<ref bean="eventExpirationCheckInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="eventExpirationCheckInterceptor"
+		class="madvirus.spring.chap06.interceptor.EventExpirationCheckInterceptor" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="alwaysUseFullPath" value="true" />
+		<property name="webBindingInitializer">
+			<bean class="madvirus.spring.chap06.binder.CustomWebBindingInitializer" />
+		</property>
+
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.ArithmeticException">
+					error/mathException
+				</prop>
+				<prop key="java.lang.Exception">
+					error/exception
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />

@@ -9,6 +9,7 @@ import madvirus.spring.chap06.service.SearchService;
 import madvirus.spring.chap06.service.SearchType;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,11 +40,17 @@ public class GameSearchController {
 	@RequestMapping("/search/game.do")
 	public ModelAndView search(@ModelAttribute("command") SearchCommand command) {
 		ModelAndView mav = new ModelAndView("search/game");
+		System.out.println("°Ë»ö¾î = " + command.getQuery().toUpperCase());
 		SearchResult result = searchService.search(command);
 		mav.addObject("searchResult", result);
 		return mav;
 	}
 
+	@ExceptionHandler(NullPointerException.class)
+	public String handleNullPointerException(NullPointerException ex) {
+		return "error/nullException";
+	}
+	
 	public void setSearchService(SearchService searchService) {
 		this.searchService = searchService;
 	}
