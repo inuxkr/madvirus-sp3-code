@@ -18,7 +18,8 @@
 
 	<bean id="searchService" class="madvirus.spring.chap06.service.SearchService" />
 
-	<bean id="authenticator" class="madvirus.spring.chap06.service.MockAuthenticator" />
+	<bean id="authenticator" class="madvirus.spring.chap06.service.MockAuthenticator"
+		p:commonLogger-ref="commonLogger" />
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
