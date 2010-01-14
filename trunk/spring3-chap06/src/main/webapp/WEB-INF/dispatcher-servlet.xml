@@ -50,6 +50,8 @@
 
 	<bean class="madvirus.spring.chap06.controller.ArithmeticOperatorController" />
 
+	<bean class="madvirus.spring.chap06.controller.OrderController" />
+	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />

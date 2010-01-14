@@ -58,11 +58,12 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
-		<!--		<dependency>-->
-		<!--			<groupId>org.springframework</groupId>-->
-		<!--			<artifactId>spring-context-support</artifactId>-->
-		<!--			<version>${spring-version}</version>-->
-		<!--		</dependency>-->
+<!--				 ehcache, mail, scheduling, ui.velocity -->
+<!--				<dependency>-->
+<!--					<groupId>org.springframework</groupId>-->
+<!--					<artifactId>spring-context-support</artifactId>-->
+<!--					<version>${spring-version}</version>-->
+<!--				</dependency>-->
 		<!--		<dependency>-->
 		<!--			<groupId>org.springframework</groupId>-->
 		<!--			<artifactId>spring-core</artifactId>-->
@@ -98,11 +99,11 @@
 		<!--			<artifactId>spring-orm</artifactId>-->
 		<!--			<version>${spring-version}</version>-->
 		<!--		</dependency>-->
-		<!--		<dependency>-->
-		<!--			<groupId>org.springframework</groupId>-->
-		<!--			<artifactId>spring-oxm</artifactId>-->
-		<!--			<version>${spring-version}</version>-->
-		<!--		</dependency>-->
+<!--				<dependency>-->
+<!--					<groupId>org.springframework</groupId>-->
+<!--					<artifactId>spring-oxm</artifactId>-->
+<!--					<version>${spring-version}</version>-->
+<!--				</dependency>-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
