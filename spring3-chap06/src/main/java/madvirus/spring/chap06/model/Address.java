@@ -30,4 +30,10 @@ public class Address {
 		this.address2 = address2;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [address1=" + address1 + ", address2=" + address2
+				+ ", zipcode=" + zipcode + "]";
+	}
+	
 }
