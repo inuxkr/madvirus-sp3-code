@@ -52,6 +52,8 @@
 
 	<bean class="madvirus.spring.chap06.controller.OrderController" />
 	
+	<bean class="madvirus.spring.chap06.controller.SimpleConverterController" />
+	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />
@@ -72,7 +74,21 @@
 		<property name="webBindingInitializer">
 			<bean class="madvirus.spring.chap06.binder.CustomWebBindingInitializer" />
 		</property>
+<!--		<property name="messageConverters">-->
+<!--			<list>-->
+<!--				-->
+<!--			</list>-->
+<!--		</property>-->
 	</bean>
+
+<!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+<!--<property name="messageConverters">-->
+<!--<util:list id="beanList">-->
+<!--<ref bean="stringHttpMessageConverter"/>-->
+<!--<ref bean="marshallingHttpMessageConverter"/>-->
+<!--</util:list>-->
+<!--</property-->
+<!--</bean>-->
 
 	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
