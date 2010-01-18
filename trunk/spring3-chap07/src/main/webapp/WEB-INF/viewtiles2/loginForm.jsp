@@ -1,12 +1,6 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title><spring:message code="login.form.title"/></title>
-</head>
-<body>
 <form:form commandName="login">
 <form:errors />
 <p>
@@ -27,5 +21,3 @@
 	<input type="submit" value="<spring:message code="login.form.submit" />">
 </p>
 </form:form>
-</body>
-</html>
