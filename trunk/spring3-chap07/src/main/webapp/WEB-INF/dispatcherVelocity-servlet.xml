@@ -14,8 +14,12 @@
 		</property>
 	</bean>
 
-	<bean class="madvirus.spring.chap07.controller.RegistMemberController" />
+	<bean class="madvirus.spring.chap07.controller.RegistMemberControllerForVelocity" />
 
+	<bean class="madvirus.spring.chap07.controller.HelloController" />
+	
+	<bean class="madvirus.spring.chap07.controller.TimeController" />
+	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -37,23 +41,20 @@
 		<property name="cacheSeconds" value="0" />
 	</bean>
 
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-		<property name="definitions">
-			<list>
-				<value>/WEB-INF/tiles2def/tilesdef.xml</value>
-			</list>
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/viewvm/" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">EUC-KR</prop>
+				<prop key="output.encoding">EUC-KR</prop>
+			</props>
 		</property>
-		<property name="preparerFactoryClass"
-			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
 	</bean>
-
-	<bean id="menuPreparer" class="madvirus.spring.chap07.tiles2.MenuPreparer" />
 
 	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
-	</bean>
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"
+		p:suffix=".vm" p:contentType="text/html; charset=EUC-KR"
+		p:dateToolAttribute="dateTool" p:numberToolAttribute="numberTool" />
 
 </beans>
