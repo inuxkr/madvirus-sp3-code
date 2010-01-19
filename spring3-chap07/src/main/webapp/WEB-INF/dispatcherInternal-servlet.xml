@@ -16,6 +16,8 @@
 
 	<bean class="madvirus.spring.chap07.controller.RegistMemberController" />
 
+	<bean class="madvirus.spring.chap07.controller.ArticleController" />
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/viewjsp/" />
@@ -34,10 +36,12 @@
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="alwaysUseFullPath" value="false" />
 	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="alwaysUseFullPath" value="false" />
 		<property name="cacheSeconds" value="0" />
 	</bean>
 </beans>
