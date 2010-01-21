@@ -31,7 +31,7 @@ public class DownloadView extends AbstractView {
 		response.setContentLength((int) file.length());
 		response.setHeader("Content-Disposition", "attachment; fileName=\""
 				+ URLEncoder.encode(file.getName(), "utf-8") + "\";");
-		response.setHeader("Content-Transfer-Encoding", "binary");
+		//response.setHeader("Content-Transfer-Encoding", "binary");
 		OutputStream out = response.getOutputStream();
 		FileInputStream fis = null;
 		try {
