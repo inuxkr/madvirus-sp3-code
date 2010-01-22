@@ -24,14 +24,22 @@ public class DownloadView extends AbstractView {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		File file = (File) model.get("downloadFile");
-		// http://www.motobit.com/help/ScptUtl/pa97.htm
-		String userAgent = request.getHeader("User-Agent");
-		boolean ie = userAgent.indexOf("MSIE") > -1;
+
 		response.setContentType(getContentType());
 		response.setContentLength((int) file.length());
-		response.setHeader("Content-Disposition", "attachment; fileName=\""
-				+ URLEncoder.encode(file.getName(), "utf-8") + "\";");
-		//response.setHeader("Content-Transfer-Encoding", "binary");
+
+		String userAgent = request.getHeader("User-Agent");
+		boolean ie = userAgent.indexOf("MSIE") > -1;
+		String fileName = null;
+		if (ie) {
+			fileName = URLEncoder.encode(file.getName(), "utf-8");
+		} else {
+			fileName = new String(file.getName().getBytes("utf-8"),
+					"iso-8859-1");
+		}
+		response.setHeader("Content-Disposition", "attachment; filename=\""
+				+ fileName + "\";");
+		response.setHeader("Content-Transfer-Encoding", "binary");
 		OutputStream out = response.getOutputStream();
 		FileInputStream fis = null;
 		try {
