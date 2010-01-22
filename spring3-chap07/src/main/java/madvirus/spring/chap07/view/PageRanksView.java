@@ -25,7 +25,7 @@ public class PageRanksView extends AbstractExcelView {
 		createColumnLabel(sheet);
 
 		List<PageRank> pageRanks = (List<PageRank>) model.get("pageRanks");
-		short rowNum = 1;
+		int rowNum = 1;
 		for (PageRank rank : pageRanks) {
 			createPageRankRow(sheet, rank, rowNum++);
 		}
@@ -47,7 +47,7 @@ public class PageRanksView extends AbstractExcelView {
 		cell.setCellValue("∆‰¿Ã¡ˆ");
 	}
 
-	private void createPageRankRow(HSSFSheet sheet, PageRank rank, short rowNum) {
+	private void createPageRankRow(HSSFSheet sheet, PageRank rank, int rowNum) {
 		HSSFRow row = sheet.createRow(rowNum);
 		HSSFCell cell = row.createCell(0);
 		cell.setCellValue(rank.getRank());
