@@ -17,7 +17,16 @@
 	<bean class="madvirus.spring.chap07.controller.RegistMemberController" />
 
 	<bean class="madvirus.spring.chap07.controller.ArticleController" />
-	
+
+	<bean class="madvirus.spring.chap07.controller.LocaleChangeController">
+		<property name="localeResolver" ref="localeResolver" />
+	</bean>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<bean class="madvirus.spring.chap07.controller.LocaleChangeController2" />
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/viewjsp/" />
@@ -34,9 +43,17 @@
 		</property>
 	</bean>
 
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+		p:paramName="language" />
+
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-		<property name="alwaysUseFullPath" value="false" />
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
 	</bean>
 
 	<bean
