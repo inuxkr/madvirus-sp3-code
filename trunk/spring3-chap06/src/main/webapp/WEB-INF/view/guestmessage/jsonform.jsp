@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>JSON 테스트</title>
-<script type="text/javascript" src="/chap06/js/jquery-1.4.js"></script>  
 <script type="text/javascript">
 var xmlhttp;
 $(document).ready(function() {
