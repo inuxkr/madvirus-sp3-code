@@ -13,9 +13,9 @@ public class PageRanksController {
 	@RequestMapping("/pageRanks")
 	public ModelAndView handleRequestInternal() {
 		List<PageRank> pageRanks = new ArrayList<PageRank>();
-		pageRanks.add(new PageRank(1, "/bbs/telzone/list"));
-		pageRanks.add(new PageRank(2, "/bbs/humor/list"));
-		pageRanks.add(new PageRank(3, "/bbs/agora/list"));
+		pageRanks.add(new PageRank(1, "/bbs/mir2/list"));
+		pageRanks.add(new PageRank(2, "/bbs/mir3/list"));
+		pageRanks.add(new PageRank(3, "/bbs/changchun2/list"));
 		return new ModelAndView("pageRanks", "pageRanks", pageRanks);
 	}
 

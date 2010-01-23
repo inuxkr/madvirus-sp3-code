@@ -18,9 +18,9 @@ public class PageRanksView extends AbstractExcelView {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void buildExcelDocument(Map model, HSSFWorkbook workbook,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	protected void buildExcelDocument(Map<String, Object> model,
+			HSSFWorkbook workbook, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		HSSFSheet sheet = createFirstSheet(workbook);
 		createColumnLabel(sheet);
 
@@ -34,7 +34,7 @@ public class PageRanksView extends AbstractExcelView {
 	private HSSFSheet createFirstSheet(HSSFWorkbook workbook) {
 		HSSFSheet sheet = workbook.createSheet();
 		workbook.setSheetName(0, "페이지 순위");
-		sheet.setColumnWidth(1, 256*20);
+		sheet.setColumnWidth(1, 256 * 20);
 		return sheet;
 	}
 
@@ -56,4 +56,5 @@ public class PageRanksView extends AbstractExcelView {
 		cell.setCellValue(rank.getPage());
 
 	}
+
 }
