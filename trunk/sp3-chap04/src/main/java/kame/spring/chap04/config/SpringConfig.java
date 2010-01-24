@@ -10,11 +10,13 @@ import kame.spring.chap04.homecontrol.DisplayStrategy;
 import kame.spring.chap04.homecontrol.HomeController;
 import kame.spring.chap04.homecontrol.InfraredRaySensor;
 import kame.spring.chap04.homecontrol.MonitorViewer;
+import kame.spring.chap04.homecontrol.Recorder;
 import kame.spring.chap04.homecontrol.SmsAlarmDevice;
 import kame.spring.chap04.homecontrol.Viewer;
 import kame.spring.chap04.work.Executor;
 import kame.spring.chap04.work.Worker;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -75,6 +77,12 @@ public class SpringConfig {
 		return new DefaultDisplayStrategy();
 	}
 
+	@Bean
+	@Qualifier("main")
+	public Recorder recorder() {
+		return new Recorder();
+	}
+	
 	@Bean(initMethod = "init")
 	public HomeController homeController() {
 		HomeController homeController = new HomeController();
