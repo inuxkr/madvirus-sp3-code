@@ -2,14 +2,19 @@ package madvirus.spring.chap08.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-
 import madvirus.spring.chap08.model.GuestMessage;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcTemplateGuestMessageDao implements GuestMessageDao {
 
@@ -33,30 +38,48 @@ public class JdbcTemplateGuestMessageDao implements GuestMessageDao {
 
 	@Override
 	public int insert(GuestMessage message) {
-		return jdbcTemplate
-				.update(
-						"insert into GUESTBOOK_MESSAGE (GUEST_NAME, MESSAGE) values (?, ?, ?)",
-						message.getGuestName(), message.getMessage(), message
-								.getRegistryDate());
+		KeyHolder holder = new GeneratedKeyHolder();
+		PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
+				"insert into GUESTBOOK_MESSAGE (GUEST_NAME, MESSAGE) values (?, ?, ?)")
+				.newPreparedStatementCreator(new Object[] {
+						message.getGuestName(), message.getMessage(),
+						message.getRegistryDate() });
+		int insertedCount = jdbcTemplate.update(psc, holder);
+		if (insertedCount > 0) {
+			message.setId(holder.getKey().intValue());
+		}
+		return insertedCount;
 	}
 
 	@Override
 	public List<GuestMessage> select(int begin, int end) {
-		return jdbcTemplate.query("select * from GUESTBOOK_MESSAGE order by MESSAGE_ID desc limit ?, ?", new RowMapper<GuestMessage> () {
+		return jdbcTemplate
+				.query(
+						"select * from GUESTBOOK_MESSAGE order by MESSAGE_ID desc limit ?, ?",
+						new RowMapper<GuestMessage>() {
 
-			@Override
-			public GuestMessage mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				GuestMessage message = new GuestMessage();
-				return null;
-			}
-		});
+							@Override
+							public GuestMessage mapRow(ResultSet rs, int rowNum)
+									throws SQLException {
+								GuestMessage message = new GuestMessage();
+								message.setId(rs.getInt("MESSAGE_ID"));
+								message
+										.setGuestName(rs
+												.getString("GUEST_NAME"));
+								message.setMessage(rs.getString("MESSAGE"));
+								message.setRegistryDate(rs
+										.getDate("REGISTRY_DATE"));
+								return message;
+							}
+						});
 	}
 
 	@Override
 	public int update(GuestMessage message) {
-		// TODO Auto-generated method stub
-		return 0;
+		return jdbcTemplate
+				.update(
+						"update GUESTBOOK_MESSAGE set MESSAGE = ? where MESSAGE_ID = ?",
+						new Object[] { message.getMessage(), message.getId() },
+						new int[] { Types.VARCHAR, Types.INTEGER });
 	}
-
 }
