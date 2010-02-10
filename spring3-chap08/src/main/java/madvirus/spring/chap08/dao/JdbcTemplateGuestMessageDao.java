@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -38,15 +39,15 @@ public class JdbcTemplateGuestMessageDao implements GuestMessageDao {
 
 	@Override
 	public int insert(GuestMessage message) {
-		KeyHolder holder = new GeneratedKeyHolder();
-		PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
-				"insert into GUESTBOOK_MESSAGE (GUEST_NAME, MESSAGE) values (?, ?, ?)")
-				.newPreparedStatementCreator(new Object[] {
-						message.getGuestName(), message.getMessage(),
-						message.getRegistryDate() });
-		int insertedCount = jdbcTemplate.update(psc, holder);
+		int insertedCount = jdbcTemplate
+				.update(
+						"insert into GUESTBOOK_MESSAGE (GUEST_NAME, MESSAGE, REGISTRY_DATE) values (?, ?, ?)",
+						new Object[] { message.getGuestName(),
+								message.getMessage(), message.getRegistryDate() });
 		if (insertedCount > 0) {
-			message.setId(holder.getKey().intValue());
+			int id = jdbcTemplate
+					.queryForInt("select last_insert_id() ");
+			message.setId(id);
 		}
 		return insertedCount;
 	}
@@ -56,6 +57,7 @@ public class JdbcTemplateGuestMessageDao implements GuestMessageDao {
 		return jdbcTemplate
 				.query(
 						"select * from GUESTBOOK_MESSAGE order by MESSAGE_ID desc limit ?, ?",
+						new Object[] {begin, end},
 						new RowMapper<GuestMessage>() {
 
 							@Override
