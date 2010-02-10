@@ -8,6 +8,18 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost/springbook?useUnicode=true&amp;characterEncoding=euckr"
+		p:username="root" p:password="" />
 
-	<bean id="guestMessageDao" class="madvirus.spring.chap08.dao.JdbcTemplateGuestMessageDao" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="guestMessageDao" class="madvirus.spring.chap08.dao.JdbcTemplateGuestMessageDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
 </beans>
