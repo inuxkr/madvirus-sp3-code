@@ -10,12 +10,7 @@ import javax.sql.DataSource;
 import madvirus.spring.chap08.model.GuestMessage;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
 public class JdbcTemplateGuestMessageDao implements GuestMessageDao {
 
