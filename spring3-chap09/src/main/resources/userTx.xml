@@ -10,7 +10,10 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<bean id="localLogAdministrator" class="com.atomikos.icatch.admin.imp.LocalLogAdministrator" />
+	<!--
+		<bean id="localLogAdministrator"
+		class="com.atomikos.icatch.admin.imp.LocalLogAdministrator" />
+	-->
 
 	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
 		init-method="init" destroy-method="shutdownForce">
@@ -22,11 +25,11 @@
             </prop>
 			</props>
 		</constructor-arg>
-		<property name="initialLogAdministrators">
-			<list>
-				<ref bean="localLogAdministrator" />
-			</list>
-		</property>
+		<!--		<property name="initialLogAdministrators">-->
+		<!--			<list>-->
+		<!--				<ref bean="localLogAdministrator" />-->
+		<!--			</list>-->
+		<!--		</property>-->
 	</bean>
 
 	<!--
@@ -48,40 +51,54 @@
 	<!--
 		Configure the Spring framework to use JTA transactions from Atomikos
 	-->
-	<bean id="JtaTransactionManager"
+	<bean id="transactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager"
 		depends-on="userTransactionService">
 		<property name="transactionManager" ref="AtomikosTransactionManager" />
 		<property name="userTransaction" ref="AtomikosUserTransaction" />
 	</bean>
 
-<bean id="billingDataSource"
-	class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-	<property name="uniqueResourceName"><value>BILLDB</value></property>
-	<property name="xaDataSourceClassName"><value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value></property>
-	<property name="xaProperties">
-		<props>
-			<prop key="user">root</prop>
-			<prop key="password">root</prop>
-			<prop key="url">jdbc:mysql://localhost/z_billing?useUnicode=true&amp;characterEncoding=euckr</prop>
-		</props>
-	</property>
-	<property name="poolSize"><value>1</value></property>
-</bean>
+	<bean id="billingDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>BILLDB</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="url">jdbc:mysql://localhost/z_billing?useUnicode=true&amp;characterEncoding=euckr
+				</prop>
+			</props>
+		</property>
+		<property name="poolSize">
+			<value>1</value>
+		</property>
+	</bean>
 
-<bean id="storeDataSource"
-	class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-	<property name="uniqueResourceName"><value>STOREDB</value></property>
-	<property name="xaDataSourceClassName"><value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value></property>
-	<property name="xaProperties">
-		<props>
-			<prop key="user">root</prop>
-			<prop key="password">root</prop>
-			<prop key="url">jdbc:mysql://localhost/z_store?useUnicode=true&amp;characterEncoding=euckr</prop>
-		</props>
-	</property>
-	<property name="poolSize"><value>1</value></property>
-</bean>
+	<bean id="storeDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>STOREDB</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="url">jdbc:mysql://localhost/z_store?useUnicode=true&amp;characterEncoding=euckr
+				</prop>
+			</props>
+		</property>
+		<property name="poolSize">
+			<value>1</value>
+		</property>
+	</bean>
 
 	<bean id="billingSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
 		p:dataSource-ref="billingDataSource" p:configLocation="WEB-INF/sqlMap/sqlMapConfig.xml" />
@@ -107,7 +124,7 @@
 
 	<aop:config>
 		<aop:pointcut
-			expression="execution(public * kame.spring.store.domain.*Service.*(..))"
+			expression="execution(public * madvirus.spring.chap09.store.domain.*Service.*(..))"
 			id="servicePublicMethod" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePublicMethod" />
 	</aop:config>
