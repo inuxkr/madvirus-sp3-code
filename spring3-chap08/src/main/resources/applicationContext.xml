@@ -17,7 +17,19 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
-	<bean id="guestMessageDao" class="madvirus.spring.chap08.dao.JdbcTemplateGuestMessageDao">
+	<bean id="jdbcTemplateGuestMessageDao" class="madvirus.spring.chap08.dao.JdbcTemplateGuestMessageDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="namedParamGuestMessageDao" class="madvirus.spring.chap08.dao.NamedParamGuestMessageDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="simpleGuestMessageDao" class="madvirus.spring.chap08.dao.SimpleJdbcGuestMessageDao">
 		<constructor-arg>
 			<ref bean="dataSource" />
 		</constructor-arg>
