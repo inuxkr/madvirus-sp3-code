@@ -7,6 +7,13 @@ public class AtomikosDataSourceBeanTest {
 
 	public void test() {
 		AtomikosDataSourceBean ds = new AtomikosDataSourceBean();
+//		ds.setBorrowConnectionTimeout(borrowConnectionTimeout);
+//		ds.setMaxPoolSize(maxPoolSize);
+//		ds.setMinPoolSize(minPoolSize);
+//		ds.setPoolSize(poolSize);
+//		ds.setTestQuery(testQuery)
+//		ds.setMaxIdleTime(maxIdleTime)
+//		ds.setMaintenanceInterval(maintenanceInterval);
 //		ds.setReapTimeout(reapTimeout)
 		MysqlXADataSource mds = new MysqlXADataSource();
 		mds.setUrl("");
