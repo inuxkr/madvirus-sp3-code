@@ -10,25 +10,21 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 	
-	<bean id="itemDao" class="madvirus.spring.chap09.store.dao.jdbc.JdbcItemDao">
-		<constructor-arg>
-			<ref bean="dataSource" />
-		</constructor-arg>
-	</bean>
+	<bean id="sqlMapClient"
+		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:configLocation="classpath:sqlMapConfig.xml" />
+
+	<bean id="itemDao" class="madvirus.spring.chap09.store.dao.ibatis.IBatisItemDao"
+		p:sqlMapClient-ref="sqlMapClient" />
 
 	<bean id="paymentInfoDao"
-		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPaymentInfoDao">
-		<constructor-arg>
-			<ref bean="dataSource" />
-		</constructor-arg>
-	</bean>
+		class="madvirus.spring.chap09.store.dao.ibatis.IBatisPaymentInfoDao"
+		p:sqlMapClient-ref="sqlMapClient" />
 
 	<bean id="purchaseOrderDao"
-		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPurchaseOrderDao">
-		<constructor-arg>
-			<ref bean="dataSource" />
-		</constructor-arg>
-	</bean>
+		class="madvirus.spring.chap09.store.dao.ibatis.IBatisPurchaseOrderDao"
+		p:sqlMapClient-ref="sqlMapClient" />
 	
 	<!-- TransactionTemplate을 이용한 트랜잭션 구현 -->
 	<bean id="transactionTemplate"
