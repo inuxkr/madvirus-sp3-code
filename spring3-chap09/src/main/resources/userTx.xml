@@ -10,36 +10,52 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
+	<!--
+		<bean id="localLogAdministrator"
+		class="com.atomikos.icatch.admin.imp.LocalLogAdministrator" />
+	-->
+
 	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
 		init-method="init" destroy-method="shutdownForce">
 		<constructor-arg>
-			<!-- 여기에 Atomikos 프로퍼티 위치 -->
+			<!-- IMPORTANT: specify all Atomikos properties here -->
 			<props>
 				<prop key="com.atomikos.icatch.service">
 					com.atomikos.icatch.standalone.UserTransactionServiceFactory 
             </prop>
 			</props>
 		</constructor-arg>
+		<!--		<property name="initialLogAdministrators">-->
+		<!--			<list>-->
+		<!--				<ref bean="localLogAdministrator" />-->
+		<!--			</list>-->
+		<!--		</property>-->
 	</bean>
 
-	<!--  Atomikos UserTransactionManager 생성. 스프링 설정에 필요함 -->
-	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+	<!--
+		Construct Atomikos UserTransactionManager, needed to configure Spring
+	-->
+	<bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
 		init-method="init" destroy-method="close" depends-on="userTransactionService">
 		<property name="forceShutdown" value="false" />
 	</bean>
 
-	<!-- Atomikos UserTransactionImp 생성. 스프링 설정에 필요함 -->
-	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+	<!--
+		Also use Atomikos UserTransactionImp, needed to configure Spring
+	-->
+	<bean id="AtomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
 		depends-on="userTransactionService">
 		<property name="transactionTimeout" value="300" />
 	</bean>
 
-	<!-- Atomikos를 사용하는 스프링 JtaTransactionManager 설정 -->
+	<!--
+		Configure the Spring framework to use JTA transactions from Atomikos
+	-->
 	<bean id="transactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager"
 		depends-on="userTransactionService">
-		<property name="transactionManager" ref="atomikosTransactionManager" />
-		<property name="userTransaction" ref="atomikosUserTransaction" />
+		<property name="transactionManager" ref="AtomikosTransactionManager" />
+		<property name="userTransaction" ref="AtomikosUserTransaction" />
 	</bean>
 
 	<bean id="billingDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
@@ -50,7 +66,7 @@
 		<property name="xaProperties">
 			<props>
 				<prop key="user">root</prop>
-				<prop key="password"></prop>
+				<prop key="password">root</prop>
 				<prop key="url">jdbc:mysql://localhost/z_billing?useUnicode=true&amp;characterEncoding=euckr
 				</prop>
 			</props>
@@ -66,7 +82,7 @@
 		<property name="xaProperties">
 			<props>
 				<prop key="user">root</prop>
-				<prop key="password"></prop>
+				<prop key="password">root</prop>
 				<prop key="url">jdbc:mysql://localhost/z_store?useUnicode=true&amp;characterEncoding=euckr
 				</prop>
 			</props>
@@ -74,30 +90,36 @@
 		<property name="poolSize" value="1" />
 	</bean>
 	
-	<bean id="itemDao" class="madvirus.spring.chap09.store.dao.jdbc.JdbcItemDao">
-		<constructor-arg>
-			<ref bean="storeDataSource" />
-		</constructor-arg>
-	</bean>
+	<bean id="billingSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:dataSource-ref="billingDataSource" p:configLocation="WEB-INF/sqlMap/sqlMapConfig.xml" />
 
-	<bean id="paymentInfoDao"
-		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPaymentInfoDao">
-		<constructor-arg>
-			<ref bean="billingDataSource" />
-		</constructor-arg>
-	</bean>
+	<bean id="storeSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+		p:dataSource-ref="storeDataSource" p:configLocation="WEB-INF/sqlMap/sqlMapConfig.xml" />
 
-	<bean id="purchaseOrderDao"
-		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPurchaseOrderDao">
-		<constructor-arg>
-			<ref bean="storeDataSource" />
-		</constructor-arg>
-	</bean>
+	<bean id="itemDao" class="kame.spring.store.dao.ibatis.IBatisItemDao"
+		p:sqlMapClient-ref="storeSqlMapClient" />
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<bean id="placeOrderService" 
-		class="madvirus.spring.chap09.store.domain.PlaceOrderServiceAnnotImpl"
+	<bean id="paymentInfoDao" class="kame.spring.store.dao.ibatis.IBatisPaymentInfoDao"
+		p:sqlMapClient-ref="billingSqlMapClient" />
+
+	<bean id="purchaseOrderDao" class="kame.spring.store.dao.ibatis.IBatisPurchaseOrderDao"
+		p:sqlMapClient-ref="storeSqlMapClient" />
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="order" propagation="REQUIRED" />
+			<tx:method name="get" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut
+			expression="execution(public * madvirus.spring.chap09.store.domain.*Service.*(..))"
+			id="servicePublicMethod" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePublicMethod" />
+	</aop:config>
+
+	<bean id="placeOrderService" class="kame.spring.store.domain.PlaceOrderServiceImpl"
 		p:itemDao-ref="itemDao" p:paymentInfoDao-ref="paymentInfoDao"
 		p:purchaseOrderDao-ref="purchaseOrderDao" />
 
