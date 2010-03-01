@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" p:driverClass="com.mysql.jdbc.Driver"
+		p:jdbcUrl="jdbc:mysql://localhost/springbook?useUnicode=true&amp;characterEncoding=euckr"
+		p:user="root" p:password="" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>
+					madvirus/spring/chap10/store/dao/hibernate/Item.hbm.xml
+				</value>
+				<value>
+					madvirus/spring/chap10/store/dao/hibernate/PaymentInfo.hbm.xml
+				</value>
+				<value>
+					madvirus/spring/chap10/store/dao/hibernate/PurchaseOrder.hbm.xml
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+			</value>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<bean id="itemDao"
+		class="madvirus.spring.chap10.store.dao.hibernate.HibernateItemDao"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<bean id="paymentInfoDao"
+		class="madvirus.spring.chap10.store.dao.hibernate.HibernatePaymentInfoDao"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<bean id="purchaseOrderDao"
+		class="madvirus.spring.chap10.store.dao.hibernate.HibernatePurchaseOrderDao"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<bean id="placeOrderService"
+		class="madvirus.spring.chap10.store.domain.PlaceOrderServiceImpl"
+		p:itemDao-ref="itemDao" p:paymentInfoDao-ref="paymentInfoDao"
+		p:purchaseOrderDao-ref="purchaseOrderDao" />
+
+</beans>
