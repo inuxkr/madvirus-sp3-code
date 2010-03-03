@@ -16,23 +16,26 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
-	<bean id="sqlMapClient"
-		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
-		p:dataSource-ref="dataSource"
-		p:configLocation="classpath:sqlMapConfig.xml" />
-
-	<bean id="itemDao"
-		class="madvirus.spring.chap09.store.dao.ibatis.IBatisItemDao"
-		p:sqlMapClient-ref="sqlMapClient" />
+	<bean id="itemDao" class="madvirus.spring.chap09.store.dao.jdbc.JdbcItemDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
 
 	<bean id="paymentInfoDao"
-		class="madvirus.spring.chap09.store.dao.ibatis.IBatisPaymentInfoDao"
-		p:sqlMapClient-ref="sqlMapClient" />
+		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPaymentInfoDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
 
 	<bean id="purchaseOrderDao"
-		class="madvirus.spring.chap09.store.dao.ibatis.IBatisPurchaseOrderDao"
-		p:sqlMapClient-ref="sqlMapClient" />
-
+		class="madvirus.spring.chap09.store.dao.jdbc.JdbcPurchaseOrderDao">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 	<bean id="placeOrderService" 
