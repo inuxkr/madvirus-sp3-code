@@ -22,8 +22,11 @@
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
 		p:dataSource-ref="dataSource" p:configLocation="classpath:sqlMapConfig.xml" />
 
-	<bean id="itemDao" class="madvirus.spring.chap10.store.dao.ibatis.IBatisItemDao"
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate"
 		p:sqlMapClient-ref="sqlMapClient" />
+
+	<bean id="itemDao" class="madvirus.spring.chap10.store.dao.ibatis.IBatisItemDao"
+		p:sqlMapClientTemplate-ref="sqlMapClientTemplate" />
 
 	<bean id="paymentInfoDao"
 		class="madvirus.spring.chap10.store.dao.ibatis.IBatisPaymentInfoDao"
