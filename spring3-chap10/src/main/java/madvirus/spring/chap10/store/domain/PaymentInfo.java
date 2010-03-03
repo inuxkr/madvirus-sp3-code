@@ -1,8 +1,22 @@
 package madvirus.spring.chap10.store.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="PAYMENT_INFO")
 public class PaymentInfo {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="PAYMENT_INFO_ID")
 	private Integer id;
+
+	@Column(name="PRICE")
 	private int price;
 
 	public PaymentInfo() {

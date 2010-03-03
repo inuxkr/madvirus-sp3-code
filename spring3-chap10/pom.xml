@@ -11,8 +11,12 @@
 			<name>JBoss Repository</name>
 			<url>http://repository.jboss.org/maven2</url>
 		</repository>
+		<repository>
+			<id>EclipseLink Repo</id>
+			<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+  </repository> 
 	</repositories>
-	
+
 	<properties>
 		<spring-version>3.0.1.RELEASE</spring-version>
 	</properties>
@@ -121,16 +125,16 @@
 			<version>3.4.GA</version>
 			<scope>runtime</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.hibernate</groupId>-->
-<!--			<artifactId>hibernate-annotations</artifactId>-->
-<!--			<version>3.4.0.GA</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.hibernate</groupId>-->
-<!--			<artifactId>hibernate-entitymanager</artifactId>-->
-<!--			<version>3.4.0.GA</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.hibernate</groupId>-->
+		<!--			<artifactId>hibernate-annotations</artifactId>-->
+		<!--			<version>3.4.0.GA</version>-->
+		<!--		</dependency>-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.4.0.GA</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -142,6 +146,23 @@
 			<version>1.5.8</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- eclipselink -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>javax.persistence</groupId>-->
+<!--			<artifactId>persistence-api</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -156,6 +177,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>chap09</finalName>
+		<finalName>chap10</finalName>
 	</build>
 </project>
