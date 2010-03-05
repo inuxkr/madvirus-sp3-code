@@ -1,7 +1,5 @@
 package madvirus.spring.chap11;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -11,15 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "config")
 public class Config {
 
-	@XmlElement(name = "server")
-	private List<ServerConfig> serverConfigs;
+	@XmlElement(name = "server-list")
+	private ServerConfigList serverConfigList;
 
-	public List<ServerConfig> getServerConfigs() {
-		return serverConfigs;
+	public ServerConfigList getServerConfigList() {
+		return serverConfigList;
 	}
 
-	public void setServerConfigs(List<ServerConfig> serverConfigs) {
-		this.serverConfigs = serverConfigs;
+	public void setServerConfigList(ServerConfigList serverConfigList) {
+		this.serverConfigList = serverConfigList;
 	}
 
 }
