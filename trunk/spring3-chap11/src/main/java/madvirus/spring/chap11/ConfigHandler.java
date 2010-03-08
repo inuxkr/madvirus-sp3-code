@@ -1,10 +1,9 @@
 package madvirus.spring.chap11;
 
-import java.io.File;
 import java.io.IOException;
 
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
@@ -23,12 +22,12 @@ public class ConfigHandler {
 		this.unmarshaller = unmarshaller;
 	}
 
-	public void save(Config config, File file) throws XmlMappingException,
+	public void save(Config config, Result result) throws XmlMappingException,
 			IOException {
-		marshaller.marshal(config, new StreamResult(file));
+		marshaller.marshal(config, result);
 	}
 
-	public Config load(File file) throws XmlMappingException, IOException {
-		return (Config) unmarshaller.unmarshal(new StreamSource(file));
+	public Config load(Source source) throws XmlMappingException, IOException {
+		return (Config) unmarshaller.unmarshal(source);
 	}
 }
