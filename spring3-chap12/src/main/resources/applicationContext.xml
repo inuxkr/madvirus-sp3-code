@@ -8,8 +8,11 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-	<task:executor id="executor" keep-alive="10" pool-size="1-2"
-		queue-capacity="1" rejection-policy="ABORT"  />
+	<bean class="madvirus.spring.chap12.Processor" p:executor-ref="executor" />
 
+	<task:executor id="executor" keep-alive="30" pool-size="1-2"
+		queue-capacity="1" rejection-policy="ABORT" />
+
+	<task:scheduler id="scheduler" pool-size="50" />
 
 </beans>
