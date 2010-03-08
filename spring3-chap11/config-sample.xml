@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config description="채팅 서버">
+	<server-list>
+		<server>
+			<host>localhost</host>
+			<port>1024</port>
+		</server>
+		<server>
+			<host>central</host>
+			<port>1088</port>
+		</server>
+	</server-list>
+</config>

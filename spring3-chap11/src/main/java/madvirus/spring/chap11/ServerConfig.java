@@ -35,4 +35,9 @@ public class ServerConfig {
 		this.port = port;
 	}
 
+	@Override
+	public String toString() {
+		return "ServerConfig [" + host + ":" + port + "]";
+	}
+
 }
