@@ -1,6 +1,8 @@
 package madvirus.spring.chap12;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -49,10 +51,18 @@ public class Main {
 
 		}, trigger);
 
+		MessageSender sender = context.getBean("messageSender",
+				MessageSender.class);
+		Future<String> sendFuture = sender.send("로그");
 		try {
 			System.out.println("10초 정지");
 			Thread.sleep(10000);
+			String resultMessage = sendFuture.get();
+			System.out.println("결과 메시지 = " + resultMessage);
 		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		context.close();
