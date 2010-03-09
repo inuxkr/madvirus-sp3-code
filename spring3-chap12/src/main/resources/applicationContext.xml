@@ -8,11 +8,27 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
+	<task:scheduler id="scheduler" pool-size="5" />
+	
+<!--	<task:executor id="executor" keep-alive="5" pool-size="1-2"-->
+<!--		queue-capacity="1" rejection-policy="ABORT" />-->
+
+	<bean id="executor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
+		p:corePoolSize="1"
+		p:maxPoolSize="2"
+		p:keepAliveSeconds="10"
+		p:queueCapacity="10">
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor.AbortPolicy" />
+		</property>
+	</bean>
+	
 	<bean class="madvirus.spring.chap12.Processor" p:executor-ref="executor" />
-
-	<task:executor id="executor" keep-alive="30" pool-size="1-2"
-		queue-capacity="1" rejection-policy="ABORT" />
-
-	<task:scheduler id="scheduler" pool-size="50" />
-
+	
+	<task:scheduled-tasks>
+		<task:scheduled ref="logCollector" method="collect" cron="0 30 0 0 0 0"/>
+	</task:scheduled-tasks>
+	
+	<bean id="logCollector" class="" />
 </beans>
