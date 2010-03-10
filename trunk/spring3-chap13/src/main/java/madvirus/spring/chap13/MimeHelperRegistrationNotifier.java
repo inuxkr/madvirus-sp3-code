@@ -24,22 +24,24 @@ public class MimeHelperRegistrationNotifier implements RegistrationNotifier {
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
 					true, "euc-kr");
-			messageHelper.setSubject("회원 가입 안내 [Attachemtn]");
+			messageHelper.setSubject("[Attachment] 회원 가입 안내");
 			String htmlContent = "<strong>안녕하세요</strong>, 반갑습니다.";
 			messageHelper.setText(htmlContent, true);
-			messageHelper.setFrom("madvirus@madvirus.net", "최범균");
+			messageHelper.setFrom("madvirus@wemade.com", "최범균");
 			messageHelper.setTo(new InternetAddress(member.getEmail(), member
 					.getName(), "euc-kr"));
 
-			DataSource dataSource = new FileDataSource("c:\\안내문.doc");
-			messageHelper.addAttachment(MimeUtility.encodeText("안내문.doc",
+			DataSource dataSource = new FileDataSource("c:\\안내문.docx");
+			messageHelper.addAttachment(MimeUtility.encodeText("안내문.docx",
 					"euc-kr", "B"), dataSource);
 		} catch (Throwable e) {
+			e.printStackTrace();
 			return;
 		}
 		try {
 			mailSender.send(message);
 		} catch (MailException e) {
+			e.printStackTrace();
 		}
 	}
 

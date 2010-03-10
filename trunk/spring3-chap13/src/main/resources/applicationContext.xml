@@ -7,14 +7,18 @@
 
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
-		p:host="postmail.wemade.com" p:port="25" p:username="system" p:password="system"
-		p:defaultEncoding="euc-kr" />
+		p:host="postmail.wemade.com" p:port="25" p:username="system"
+		p:password="system" p:defaultEncoding="euc-kr" />
 
 	<bean id="simpleNotifier" class="madvirus.spring.chap13.SimpleRegistrationNotifier">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 
 	<bean id="mimeNotifier" class="madvirus.spring.chap13.MimeRegistrationNotifier">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="mimeHelperNotifier" class="madvirus.spring.chap13.MimeHelperRegistrationNotifier">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 

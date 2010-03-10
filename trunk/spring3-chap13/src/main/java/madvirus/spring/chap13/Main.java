@@ -15,6 +15,9 @@ public class Main {
 		MimeRegistrationNotifier mimeNotifier = context.getBean(MimeRegistrationNotifier.class);
 		mimeNotifier.sendEmail(member);
 		
+		MimeHelperRegistrationNotifier helperNotifier = context.getBean(MimeHelperRegistrationNotifier.class);
+		helperNotifier.sendEmail(member);
+		
 		context.close();
 	}
 }
