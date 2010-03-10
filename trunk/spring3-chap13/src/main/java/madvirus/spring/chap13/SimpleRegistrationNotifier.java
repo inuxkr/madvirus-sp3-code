@@ -15,9 +15,9 @@ public class SimpleRegistrationNotifier implements RegistrationNotifier {
 	@Override
 	public void sendEmail(Member member) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setSubject("회원 가입 안내 [Simple]");
+		message.setSubject("[Simple] 회원 가입 안내");
 		message.setText("회원 가입을 환영합니다.");
-		message.setFrom("madvirus@madvirus.net");
+		message.setFrom("madvirus@wemade.com");
 		message.setTo(member.getEmail());
 		try {
 			mailSender.send(message);
