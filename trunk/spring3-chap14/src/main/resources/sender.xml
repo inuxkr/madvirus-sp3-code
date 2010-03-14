@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL">
+			<value>tcp://localhost:61616</value>
+		</property>
+	</bean>
+
+	<bean id="jmsTxManager"
+		class="org.springframework.jms.connection.JmsTransactionManager">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="jmsTxManager">
+		<tx:attributes>
+			<tx:method name="sendMessage" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(public void sendMessage(..))" />
+	</aop:config>
+
+	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="bbs.article.queue" />
+	</bean>
+
+	<bean id="articleMessageConverter"
+		class="madvirus.spring.chap14.domain.converter.ArticleMessageConverter" />
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="messageConverter" ref="articleMessageConverter" />
+	</bean>
+
+	<bean class="madvirus.spring.chap14.domain.ArticleMessageSender">
+		<property name="jmsTemplate" ref="jmsTemplate" />
+		<property name="destination" ref="queueDestination" />
+	</bean>
+</beans>
