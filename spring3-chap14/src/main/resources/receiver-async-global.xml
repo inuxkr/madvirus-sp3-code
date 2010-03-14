@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+		init-method="init" destroy-method="shutdownForce">
+		<constructor-arg>
+			<!-- 여기에 Atomikos 프로퍼티 위치 -->
+			<props>
+				<prop key="com.atomikos.icatch.service">
+					com.atomikos.icatch.standalone.UserTransactionServiceFactory 
+            	</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<!--  Atomikos UserTransactionManager 생성. 스프링 설정에 필요함 -->
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close" depends-on="userTransactionService">
+		<property name="forceShutdown" value="false" />
+	</bean>
+
+	<!-- Atomikos UserTransactionImp 생성. 스프링 설정에 필요함 -->
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"
+		depends-on="userTransactionService">
+		<property name="transactionTimeout" value="300" />
+	</bean>
+
+	<!-- Atomikos를 사용하는 스프링 JtaTransactionManager 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager"
+		depends-on="userTransactionService">
+		<property name="transactionManager" ref="atomikosTransactionManager" />
+		<property name="userTransaction" ref="atomikosUserTransaction" />
+	</bean>
+
+	<bean id="xaConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory">
+		<property name="brokerURL">
+			<value>tcp://localhost:61616</value>
+		</property>
+	</bean>
+
+	<bean id="connectionFactory" class="com.atomikos.jms.AtomikosConnectionFactoryBean"
+		init-method="init" destroy-method="close">
+		<property name="uniqueResourceName" value="amq1" />
+		<property name="xaConnectionFactory" ref="xaConnectionFactory" />
+	</bean>
+
+	<bean id="articleQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="bbs.article.queue" />
+	</bean>
+
+	<bean id="messageListenerContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer"
+		p:connectionFactory-ref="connectionFactory" p:destination-ref="articleQueueDestination"
+		p:messageListener-ref="articleMessageListener"
+		p:transactionManager-ref="transactionManager"
+		p:sessionTransacted="true" />
+
+	<bean id="articleMessageListener"
+		class="madvirus.spring.chap14.domain.listener.ArticleMessageListener" />
+
+</beans>

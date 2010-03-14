@@ -5,6 +5,14 @@
 	<artifactId>spring3-chap14</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<repositories>
+		<repository>
+			<id>atomikos</id>
+			<name>Atomikos Repository</name>
+			<url>http://repo.atomikos.com/</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<spring-version>3.0.1.RELEASE</spring-version>
 	</properties>
@@ -66,6 +74,36 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>5.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-essentials-all</artifactId>
+			<version>3.6.1</version>
+			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>com.atomikos</groupId>
+					<artifactId>transactions-jdbc-deprecated</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.atomikos</groupId>
+					<artifactId>transactions-jms-deprecated</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.atomikos</groupId>
+					<artifactId>transactions-hibernate3</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
