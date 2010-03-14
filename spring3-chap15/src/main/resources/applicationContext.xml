@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"
+		p:locateExistingServerIfPossible="false" p:defaultDomain="madvirus" />
+
+	<bean id="connectorServer"
+		class="org.springframework.jmx.support.ConnectorServerFactoryBean"
+		depends-on="registry" p:server-ref="mbeanServer"
+		p:serviceUrl="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/madvirus"
+		p:objectName="connector:name=rmi" />
+
+	<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean"
+		p:port="1099" />
+
+	<bean id="monitor" class="madvirus.spring.chap15.monitor.PerformanceMonitor" />
+
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="server" ref="mbeanServer" />
+		<property name="beans">
+			<map>
+				<entry key="madvirus:name=monitor" value-ref="monitor" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="monitorByName" class="madvirus.spring.chap15.monitor.PerformanceMonitor" />
+
+	<bean id="assembler"
+		class="org.springframework.jmx.export.assembler.MethodNameBasedMBeanInfoAssembler">
+		<property name="managedMethods">
+			<list>
+				<value>getViewCount</value>
+				<value>getSumOfResponseTime</value>
+				<value>getAverageResponseTime</value>
+				<value>reset</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="exporterByName" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="assembler" ref="assembler" />
+		<property name="beans">
+			<map>
+				<entry key="madvirus:name=monitorByMethod" value-ref="monitorByName" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="monitorByIF" class="madvirus.spring.chap15.monitor.PerformanceMonitor" />
+
+	<bean id="assemlberByIF"
+		class="org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler">
+		<property name="managedInterfaces">
+			<list>
+				<value>
+					madvirus.spring.chap15.monitor.ManagerPerformanceMonitor
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="exporterByIF" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="assembler" ref="assemlberByIF" />
+		<property name="beans">
+			<map>
+				<entry key="madvirus:name=monitorByIF" value-ref="monitorByIF" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="annotMonitor" class="madvirus.spring.chap15.monitor.AnnotPerformanceMonitor" />
+
+	<context:mbean-export server="mbeanServer"/>
+		
+<!--	<bean id="attributeSource"-->
+<!--		class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource" />-->
+<!---->
+<!--	<bean id="annotAsselbler"-->
+<!--		class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler"-->
+<!--		p:attributeSource-ref="attributeSource" />-->
+<!---->
+<!--	<bean id="namingStrategy"-->
+<!--		class="org.springframework.jmx.export.naming.MetadataNamingStrategy"-->
+<!--		p:attributeSource-ref="attributeSource" />-->
+<!---->
+<!--	<bean id="exporterByAnnot" class="org.springframework.jmx.export.MBeanExporter"-->
+<!--		p:server-ref="mbeanServer" p:assembler-ref="annotAsselbler"-->
+<!--		p:namingStrategy-ref="namingStrategy" p:autodetect="true" />-->
+
+</beans>
