@@ -1,6 +1,8 @@
 package madvirus.spring.chap08.service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +27,18 @@ public class GuestMessageServiceImpl implements GuestMessageService {
 
 	@Transactional
 	public GuestMessageList getMessageList(int pageNum) {
-		
-		return new GuestMessageList();
+		int totalCount = guestMessageDao.count();
+		if (totalCount == 0) {
+			return new GuestMessageList(0, 0, 0, 0, Collections
+					.<GuestMessage> emptyList());
+		}
+		int begin = (pageNum - 1) * pageSize + 1;
+		int end = begin + pageSize - 1;
+		if (end > totalCount) {
+			end = totalCount;
+		}
+		List<GuestMessage> messages = guestMessageDao.select(begin, end);
+		return new GuestMessageList(totalCount, pageNum, begin, end, messages);
 	}
 
 	@Autowired
