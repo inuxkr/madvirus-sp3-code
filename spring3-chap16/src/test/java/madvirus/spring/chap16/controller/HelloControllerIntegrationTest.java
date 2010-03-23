@@ -3,6 +3,7 @@ package madvirus.spring.chap16.controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ContextConfiguration("classpath:applicationContext.xml")
 public class HelloControllerIntegrationTest {
 
+	@Autowired
 	private ApplicationContext applicationContext;
 	
 	private MockHttpServletRequest request;
@@ -32,9 +34,11 @@ public class HelloControllerIntegrationTest {
 	}
 	
 	@Test
-	public void test() {
-		ModelAndView mav = null;
-		String expectedName = "";
-		ModelAndViewAssert.assertViewName(mav, expectedName);
+	public void test() throws Exception {
+		request.setMethod("GET");
+		request.setRequestURI("/hello.do");
+		request.addParameter("name", "ÃÖ¹ü±Õ");
+		ModelAndView mav = handlerAdapter.handle(request, response, controller);
+		ModelAndViewAssert.assertViewName(mav, "hello");
 	}
 }
