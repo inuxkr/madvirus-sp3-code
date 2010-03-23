@@ -24,6 +24,26 @@
 	</bean>
 
 	<bean id="guestMessageService" class="madvirus.spring.chap16.service.GuestMessageServiceImpl" />
-	
-	<tx:annotation-driven transaction-manager="txMgr"/>
+
+	<tx:annotation-driven transaction-manager="txMgr" />
+
+	<bean id="hello" class="madvirus.spring.chap16.controller.HelloController" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="alwaysUseFullPath" value="false" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="alwaysUseFullPath" value="false" />
+		<property name="cacheSeconds" value="0" />
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/viewjsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
 </beans>
