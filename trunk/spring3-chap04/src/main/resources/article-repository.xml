@@ -5,5 +5,5 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="articleRepository" class="kame.spring.chap04.article.ArticleRepositoryImpl" />
+	<bean id="articleRepository" class="madvirus.spring.chap04.article.ArticleRepositoryImpl" />
 </beans>

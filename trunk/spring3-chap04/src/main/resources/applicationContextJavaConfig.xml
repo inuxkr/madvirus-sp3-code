@@ -20,10 +20,10 @@
 	<bean
 		class="org.springframework.context.annotation.ConfigurationClassPostProcessor" />
 
-	<bean class="kame.spring.chap04.config.SpringConfig" />
+	<bean class="madvirus.spring.chap04.config.SpringConfig" />
 
 	
-<!--	<context:component-scan base-package="kame.spring.chap04.config">-->
+<!--	<context:component-scan base-package="madvirus.spring.chap04.config">-->
 <!--	</context:component-scan>-->
 
 </beans>
