@@ -17,20 +17,20 @@ public class LoggingAspect {
 	}
 
 	@AfterReturning(
-			pointcut = "kame.spring.chap05.aop.annot.PublicPointcut.publicMethod()", 
+			pointcut = "madvirus.spring.chap05.aop.annot.PublicPointcut.publicMethod()", 
 			returning = "ret")
 	public void afterReturning(Object ret) {
 		System.out.println("[LA] 메서드 실행 후 후처리 수행, 리턴값=" + ret);
 	}
 
 	@AfterThrowing(
-			pointcut = "kame.spring.chap05.aop.annot.PublicPointcut.publicMethod()",
+			pointcut = "madvirus.spring.chap05.aop.annot.PublicPointcut.publicMethod()",
 			throwing = "ex")
 	public void afterThrowing(Throwable ex) {
 		System.out.println("[LA] 메서드 실행 중 예외 발생, 예외=" + ex.getMessage());
 	}
 
-	@After("kame.spring.chap05.aop.annot.PublicPointcut.publicMethod()")
+	@After("madvirus.spring.chap05.aop.annot.PublicPointcut.publicMethod()")
 	public void afterFinally() {
 		System.out.println("[LA] 메서드 실행 완료");
 	}
