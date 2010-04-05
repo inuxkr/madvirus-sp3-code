@@ -1,4 +1,4 @@
-package kame.spring.chap02;
+package madvirus.spring.chap02;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

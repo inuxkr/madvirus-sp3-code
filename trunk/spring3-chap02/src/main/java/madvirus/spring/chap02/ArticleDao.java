@@ -1,4 +1,4 @@
-package kame.spring.chap02;
+package madvirus.spring.chap02;
 
 public interface ArticleDao {
 

@@ -1,4 +1,4 @@
-package kame.spring.chap02;
+package madvirus.spring.chap02;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

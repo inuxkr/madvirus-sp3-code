@@ -20,7 +20,7 @@
 	
 	<context:property-placeholder location="classpath:config/jdbc.properties" />
 	
-	<bean id="dataSourceFactory" class="kame.spring.chap02.DataSourceFactory">
+	<bean id="dataSourceFactory" class="madvirus.spring.chap02.DataSourceFactory">
 		<property name="jdbcDriver" value="${jdbc.driver}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
