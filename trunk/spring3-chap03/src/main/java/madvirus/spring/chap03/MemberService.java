@@ -1,4 +1,4 @@
-package kame.spring.chap03;
+package madvirus.spring.chap03;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
