@@ -15,9 +15,9 @@
 		</property>
 	</bean>
 
-	<bean id="loginProcessor" class="kame.spring.chap03.LoginProcessor" />
+	<bean id="loginProcessor" class="madvirus.spring.chap03.LoginProcessor" />
 	
-	<bean id="memberService" class="kame.spring.chap03.MemberService" />
+	<bean id="memberService" class="madvirus.spring.chap03.MemberService" />
 	
-	<bean class="kame.spring.chap03.CustomEventListener" />
+	<bean class="madvirus.spring.chap03.CustomEventListener" />
 </beans>
