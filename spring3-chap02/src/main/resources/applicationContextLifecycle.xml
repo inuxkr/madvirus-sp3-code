@@ -12,10 +12,10 @@
 	<bean
 		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
-	<bean class="kame.spring.chap02.CustomBeanFactoryPostProcessor" />
+	<bean class="madvirus.spring.chap02.CustomBeanFactoryPostProcessor" />
 
-	<bean class="kame.spring.chap02.CustomBeanPostProcessor" />
+	<bean class="madvirus.spring.chap02.CustomBeanPostProcessor" />
 
-	<bean id="allILifeCycleInterfacesImpl" class="kame.spring.chap02.AllILifeCycleInterfacesImpl" />
+	<bean id="allILifeCycleInterfacesImpl" class="madvirus.spring.chap02.AllILifeCycleInterfacesImpl" />
 
 </beans>
