@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order;
 @Order(3)
 public class ProfilingAspect {
 
-	@Pointcut("execution(public * kame.spring.chap05.board..*(..))")
+	@Pointcut("execution(public * madvirus.spring.chap05.board..*(..))")
 	private void profileTarget() {}
 	
 	@Around("profileTarget()")
