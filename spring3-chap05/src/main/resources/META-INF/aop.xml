@@ -6,11 +6,11 @@
 
 <aspectj>
 	<weaver>
-		<include within="kame.spring.chap05.board.service.*" />
-		<include within="kame.spring.chap05.board.Article" />
+		<include within="madvirus.spring.chap05.board.service.*" />
+		<include within="madvirus.spring.chap05.board.Article" />
 	</weaver>
 	
 	<aspects>
-		<aspect name="kame.spring.chap05.aop.annot.ProfilingAspect"/>
+		<aspect name="madvirus.spring.chap05.aop.annot.ProfilingAspect"/>
 	</aspects>
 </aspectj>

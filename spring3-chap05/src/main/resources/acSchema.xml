@@ -7,14 +7,14 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<bean id="loggingAdvice" class="kame.spring.chap05.aop.pojo.LoggingAdvice" />
-	<bean id="cacheAdvice" class="kame.spring.chap05.aop.pojo.ArticleCacheAdvice" />
-	<bean id="traceAdvice" class="kame.spring.chap05.aop.pojo.UpdateMemberInfoTraceAdvice" />
+	<bean id="loggingAdvice" class="madvirus.spring.chap05.aop.pojo.LoggingAdvice" />
+	<bean id="cacheAdvice" class="madvirus.spring.chap05.aop.pojo.ArticleCacheAdvice" />
+	<bean id="traceAdvice" class="madvirus.spring.chap05.aop.pojo.UpdateMemberInfoTraceAdvice" />
 
 	<aop:config>
 		<aop:aspect id="loggingAspect" ref="loggingAdvice" order="3">
 			<aop:pointcut id="publicMethod"
-				expression="execution(public * kame.spring.chap05..*(..))" />
+				expression="execution(public * madvirus.spring.chap05..*(..))" />
 			<aop:before method="before" pointcut-ref="publicMethod" />
 			<aop:after-returning method="afterReturning" pointcut-ref="publicMethod" returning="ret"/>
 			<aop:after-throwing method="afterThrowing" pointcut-ref="publicMethod" throwing="ex" />
@@ -36,7 +36,7 @@
 		</aop:aspect>
 	</aop:config>
 
-	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
+	<bean id="readArticleService" class="madvirus.spring.chap05.board.service.ReadArticleServiceImpl" />
 	
-	<bean id="memberService" class="kame.spring.chap05.member.service.MemberServiceImpl" />
+	<bean id="memberService" class="madvirus.spring.chap05.member.service.MemberServiceImpl" />
 </beans>

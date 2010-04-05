@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<aop:aspectj-autoproxy />
-	<bean id="traceAspect" class="kame.spring.chap05.aop.annot.UpdateMemberInfoTraceAspect" />
-	<bean id="cacheAspect" class="kame.spring.chap05.aop.annot.ArticleCacheAspect" />
-	<bean id="loggingAspect" class="kame.spring.chap05.aop.annot.LoggingAspect" />
+	<bean id="traceAspect" class="madvirus.spring.chap05.aop.annot.UpdateMemberInfoTraceAspect" />
+	<bean id="cacheAspect" class="madvirus.spring.chap05.aop.annot.ArticleCacheAspect" />
+	<bean id="loggingAspect" class="madvirus.spring.chap05.aop.annot.LoggingAspect" />
 	
-	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
+	<bean id="readArticleService" class="madvirus.spring.chap05.board.service.ReadArticleServiceImpl" />
 	
-	<bean id="memberService" class="kame.spring.chap05.member.service.MemberServiceImpl" />
+	<bean id="memberService" class="madvirus.spring.chap05.member.service.MemberServiceImpl" />
 </beans>
