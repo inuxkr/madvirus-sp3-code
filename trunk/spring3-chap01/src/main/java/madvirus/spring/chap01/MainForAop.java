@@ -1,4 +1,4 @@
-package kame.spring.chap01;
+package madvirus.spring.chap01;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

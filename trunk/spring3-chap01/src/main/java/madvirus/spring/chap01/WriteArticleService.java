@@ -1,4 +1,4 @@
-package kame.spring.chap01;
+package madvirus.spring.chap01;
 
 public interface WriteArticleService {
 

@@ -1,4 +1,4 @@
-package kame.spring.chap01;
+package madvirus.spring.chap01;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
