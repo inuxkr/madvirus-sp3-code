@@ -12,18 +12,18 @@
 	<context:load-time-weaver />
 	<context:spring-configured />
 	
-	<bean id="readArticleService" class="kame.spring.chap05.board.service.ReadArticleServiceImpl" />
+	<bean id="readArticleService" class="madvirus.spring.chap05.board.service.ReadArticleServiceImpl" />
 
 	<bean id="writeArticleService"
-		class="kame.spring.chap05.board.service.WriteArticleServiceImpl">
+		class="madvirus.spring.chap05.board.service.WriteArticleServiceImpl">
 		<constructor-arg>
 			<ref bean="articleDao" />
 		</constructor-arg>
 	</bean>
 
-	<bean id="articleDao" class="kame.spring.chap05.board.dao.MySQLArticleDao" />
+	<bean id="articleDao" class="madvirus.spring.chap05.board.dao.MySQLArticleDao" />
 
-	<bean class="kame.spring.chap05.board.Article">
+	<bean class="madvirus.spring.chap05.board.Article">
 		<property name="articleDao" ref="articleDao" />
 	</bean>
 </beans>
