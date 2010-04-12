@@ -11,6 +11,7 @@ public class HelloControllerUnitTest {
 	@Test
 	public void hello() {
 		MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+		mockRequest.setMethod("POST");
 		mockRequest.setCharacterEncoding("euc-kr");
 		mockRequest.addParameter("name", "ÃÖ¹ü±Õ");
 		HelloController controller = new HelloController();
