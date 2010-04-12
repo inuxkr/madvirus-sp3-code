@@ -4,9 +4,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<script type='text/javascript'
-		src='/chap08/dwr/interface/commentService.js'></script>
-	<script type='text/javascript' src='/chap08/dwr/engine.js'></script>
-	<script type='text/javascript' src='/chap08/dwr/util.js'></script>
+		src='/appa/dwr/interface/commentService.js'></script>
+	<script type='text/javascript' src='/appa/dwr/engine.js'></script>
+	<script type='text/javascript' src='/appa/dwr/util.js'></script>
 	<script type="text/javascript">
 	window.onload = function() {
 		commentService.list(onList);
