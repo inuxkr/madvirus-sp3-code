@@ -14,7 +14,7 @@
 	<dwr:controller id="dwrController" />
 
 	<dwr:configuration>
-		<dwr:convert type="bean" class="madvirus.spring.chap08.Comment" />
+		<dwr:convert type="bean" class="madvirus.spring.appa.Comment" />
 	</dwr:configuration>
 
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -29,7 +29,7 @@
 		</property>
 	</bean>
 
-	<bean id="commentService" class="madvirus.spring.chap08.CommentServiceImpl">
+	<bean id="commentService" class="madvirus.spring.appa.CommentServiceImpl">
 		<property name="commentRepository" ref="commentRepository" />
 		<dwr:remote javascript="commentService">
 <!--			<dwr:include method="write" />-->
@@ -38,9 +38,9 @@
 		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 
-	<bean id="commentRepository" class="madvirus.spring.chap08.CommentRepositoryImpl" />
+	<bean id="commentRepository" class="madvirus.spring.appa.CommentRepositoryImpl" />
 
-	<bean class="madvirus.spring.chap08.CommentController" />
+	<bean class="madvirus.spring.appa.CommentController" />
 	
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
