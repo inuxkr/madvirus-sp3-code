@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
        http://www.directwebremoting.org/schema/spring-dwr
        http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
 
 	<dwr:controller id="dwrController" />
-
-	<dwr:configuration>
-		<dwr:convert type="bean" class="madvirus.spring.appa.Comment" />
-	</dwr:configuration>
 
 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="alwaysUseFullPath" value="true" />
@@ -29,21 +22,24 @@
 		</property>
 	</bean>
 
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<dwr:configuration>
+		<dwr:convert type="bean" class="madvirus.spring.appa.Comment" />
+	</dwr:configuration>
+
 	<bean id="commentService" class="madvirus.spring.appa.CommentServiceImpl">
 		<property name="commentRepository" ref="commentRepository" />
 		<dwr:remote javascript="commentService">
-<!--			<dwr:include method="write" />-->
-<!--			<dwr:include method="list" />-->
+			<dwr:include method="write" />
+			<dwr:include method="list" />
 		</dwr:remote>
-		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 
 	<bean id="commentRepository" class="madvirus.spring.appa.CommentRepositoryImpl" />
 
 	<bean class="madvirus.spring.appa.CommentController" />
-	
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
