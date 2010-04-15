@@ -17,15 +17,22 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
-	<bean id="simpleGuestMessageDao" class="madvirus.spring.chap16.dao.SimpleJdbcGuestMessageDao">
+	<bean id="guestMessageDao" class="madvirus.spring.chap16.dao.SimpleJdbcGuestMessageDao">
 		<constructor-arg>
 			<ref bean="dataSource" />
 		</constructor-arg>
 	</bean>
 
-	<bean id="guestMessageService" class="madvirus.spring.chap16.service.GuestMessageServiceImpl" />
+	<bean id="guestMessageService" class="madvirus.spring.chap16.service.GuestMessageServiceImpl">
+		<property name="guestMessageDao" ref="guestMessageDao" />
+	</bean>
 
 	<tx:annotation-driven transaction-manager="txMgr" />
+
+	<bean id="guestMessageController"
+		class="madvirus.spring.chap16.controller.GuestMessageController">
+		<property name="guestMessageService" ref="guestMessageService" />
+	</bean>
 
 	<bean id="hello" class="madvirus.spring.chap16.controller.HelloController" />
 

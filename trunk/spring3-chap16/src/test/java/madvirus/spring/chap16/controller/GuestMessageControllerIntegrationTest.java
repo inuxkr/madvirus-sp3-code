@@ -15,30 +15,29 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
-public class HelloControllerIntegrationTest {
+public class GuestMessageControllerIntegrationTest {
 
 	@Autowired
 	private ApplicationContext applicationContext;
-	
-	private MockHttpServletRequest request;
-	private MockHttpServletResponse response;
+
 	private HandlerAdapter handlerAdapter;
-	private HelloController controller;
-	
+	private GuestMessageController controller;
+
 	@Before
 	public void setup() {
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
 		handlerAdapter = applicationContext.getBean(HandlerAdapter.class);
-		controller = applicationContext.getBean(HelloController.class);
+		controller = applicationContext.getBean(GuestMessageController.class);
 	}
-	
+
 	@Test
 	public void test() throws Exception {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
 		request.setMethod("GET");
-		request.setRequestURI("/hello.do");
-		request.addParameter("name", "ÃÖ¹ü±Õ");
+		request.setRequestURI("/message/list/1");
+		request.setContextPath("/");
 		ModelAndView mav = handlerAdapter.handle(request, response, controller);
-		ModelAndViewAssert.assertViewName(mav, "hello");
+		ModelAndViewAssert.assertViewName(mav, "message/list");
 	}
+
 }
