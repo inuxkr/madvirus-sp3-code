@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="wemade-mir-operation-tool" default="chap01">
+
+	<target name="init">
+		<property name="chap01.path" value="../spring3-chap01" />
+		<property name="chap02.path" value="../spring3-chap02" />
+		<property name="chap03.path" value="../spring3-chap03" />
+		<property name="chap04.path" value="../spring3-chap04" />
+		<property name="chap05.path" value="../spring3-chap05" />
+		<property name="chap06.path" value="../spring3-chap06" />
+		<property name="chap07.path" value="../spring3-chap07" />
+		<property name="chap08.path" value="../spring3-chap08" />
+		<property name="chap09.path" value="../spring3-chap09" />
+		<property name="chap10.path" value="../spring3-chap10" />
+		<property name="chap11.path" value="../spring3-chap11" />
+		<property name="chap12.path" value="../spring3-chap12" />
+		<property name="chap13.path" value="../spring3-chap13" />
+		<property name="chap14.path" value="../spring3-chap14" />
+		<property name="chap15.path" value="../spring3-chap15" />
+		<property name="chap16.path" value="../spring3-chap16" />
+		<property name="appa.path" value="../spring3-appa" />
+		<property name="appb.path" value="../spring3-appb" />
+		
+		<condition property="maven.bin" value="C:\devtool\apache-maven-2.2.0\bin\mvn.bat">
+			<os family="windows" />
+		</condition>
+		<property name="maven.bin" value="mvn" />
+	</target>
+	
+	<target name="chap01" depends="init">
+		<echo message="=========== chap01 ===========" />
+		<delete dir="${chap01.path}/target/chap01-with-dependencies.dir" />
+		<exec executable="${maven.bin}" dir="${chap01.path}">
+			<arg line="assembly:directory" />
+		</exec>
+	</target>
+</project>
