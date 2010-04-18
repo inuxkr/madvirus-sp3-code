@@ -23,6 +23,14 @@
 			</includes>
 			<useDefaultExcludes>true</useDefaultExcludes>
 		</fileSet>
+		<fileSet>
+			<directory>src/main/webapp</directory>
+			<outputDirectory>webapp</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
