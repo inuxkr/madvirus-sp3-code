@@ -127,7 +127,7 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<descriptors>
-						<descriptor>src/assembly/with-dependencies.xml</descriptor>
+						<descriptor>src/with-dependencies.xml</descriptor>
 					</descriptors>
 				</configuration>
 			</plugin>
