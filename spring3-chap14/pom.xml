@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>madvirus.spring</groupId>
 	<artifactId>spring3-chap14</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -106,6 +105,7 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+	<version>1.0.0</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -115,6 +115,14 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/with-dependencies.xml</descriptor>
+					</descriptors>
 				</configuration>
 			</plugin>
 		</plugins>
