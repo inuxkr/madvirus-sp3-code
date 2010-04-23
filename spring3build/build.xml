@@ -1,38 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="wemade-mir-operation-tool" default="chap01">
+<project name="wemade-mir-operation-tool" default="all">
 
 	<target name="init">
-		<property name="chap01.path" value="../spring3-chap01" />
-		<property name="chap02.path" value="../spring3-chap02" />
-		<property name="chap03.path" value="../spring3-chap03" />
-		<property name="chap04.path" value="../spring3-chap04" />
-		<property name="chap05.path" value="../spring3-chap05" />
-		<property name="chap06.path" value="../spring3-chap06" />
-		<property name="chap07.path" value="../spring3-chap07" />
-		<property name="chap08.path" value="../spring3-chap08" />
-		<property name="chap09.path" value="../spring3-chap09" />
-		<property name="chap10.path" value="../spring3-chap10" />
-		<property name="chap11.path" value="../spring3-chap11" />
-		<property name="chap12.path" value="../spring3-chap12" />
-		<property name="chap13.path" value="../spring3-chap13" />
-		<property name="chap14.path" value="../spring3-chap14" />
-		<property name="chap15.path" value="../spring3-chap15" />
-		<property name="chap16.path" value="../spring3-chap16" />
-		<property name="appa.path" value="../spring3-appa" />
-		<property name="appb.path" value="../spring3-appb" />
-		
 		<condition property="maven.bin" value="C:\devtool\apache-maven-2.2.0\bin\mvn.bat">
 			<os family="windows" />
 		</condition>
 		<property name="maven.bin" value="mvn" />
 	</target>
 	
-	<target name="chap01" depends="init">
-		<echo message="=========== chap01 ===========" />
-		<delete dir="${chap01.path}/target/chap01-with-dependencies.dir" />
-		<exec executable="${maven.bin}" dir="${chap01.path}">
+	<target name="mvnAssemblyDirectory" depends="init">
+		<echo message="=========== ${artifactId} ===========" />
+		<delete dir="../spring3-${artifactId}/target/${artifactId}.jar" />
+		<delete dir="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir" />
+		<exec executable="${maven.bin}" dir="../spring3-${artifactId}">
 			<arg line="assembly:directory" />
 		</exec>
+		<copy todir="../../eclipseWorkspace-sp3/${artifactId}/src">
+			<fileset dir="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/src">
+			</fileset>
+		</copy>
+		<copy todir="../../eclipseWorkspace-sp3/${artifactId}/${libdir}">
+			<fileset dir="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib">
+				<exclude name="spring3-${artifactId}-1.0.0.*" />
+				<exclude name="spring-*-3.0.1.RELEASE.jar" />
+			</fileset>
+		</copy>
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-aop-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.aop-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-asm-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.asm-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-aspects-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.aspects-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-beans-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.beans-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-context-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.context-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-context-support-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.context.support-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-core-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.core-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-expression-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.expression-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-instrument-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.instrument-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-jdbc-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.jdbc-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-jms-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.jms-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-orm-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.orm-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-oxm-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.oxm-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-test-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.test-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-tx-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.transaction-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-web-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.web-3.0.1.RELEASE-A.jar" />
+		<copy failonerror="false" file="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/lib/spring-webmvc-3.0.1.RELEASE.jar" tofile="../../eclipseWorkspace-sp3/${artifactId}/${libdir}/org.springframework.web.servlet-3.0.1.RELEASE-A.jar" />
+	</target>
+	
+	<target name="copyWebApp">
+		<echo message="------ ${artifactId} WebContent -----"/>
+		<copy todir="../../eclipseWorkspace-sp3/${artifactId}/WebContent">
+			<fileset dir="../spring3-${artifactId}/target/${artifactId}-with-dependencies.dir/${artifactId}/webapp">
+				<include name="**/*.jsp"/>
+				<include name="**/*.xml"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="chap01" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap01" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap02" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap02" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap03" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap03" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap04" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap04" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap05" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap05" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap06" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap06" />
+			<param name="libdir" value="WebContent/WEB-INF/lib"/>
+		</antcall>
+		<antcall target="copyWebApp">
+			<param name="artifactId" value="chap06" />
+		</antcall>
+	</target>
+	<target name="chap07" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap07" />
+			<param name="libdir" value="WebContent/WEB-INF/lib"/>
+		</antcall>
+		<antcall target="copyWebApp">
+			<param name="artifactId" value="chap07" />
+		</antcall>
+	</target>
+	<target name="chap08" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap08" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap09" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap09" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap10" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap10" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap11" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap11" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap12" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap12" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap13" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap13" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap14" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap14" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap15" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap15" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="chap16" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="chap16" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	<target name="appa" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="appa" />
+			<param name="libdir" value="WebContent/WEB-INF/lib"/>
+		</antcall>
+		<antcall target="copyWebApp">
+			<param name="artifactId" value="appa" />
+		</antcall>
+	</target>
+	<target name="appb" depends="init">
+		<antcall target="mvnAssemblyDirectory">
+			<param name="artifactId" value="appb" />
+			<param name="libdir" value="lib" />
+		</antcall>
+	</target>
+	
+	<target name="all" depends="chap01, chap02, chap03, chap04, chap05, chap06, chap07, chap08, chap09, chap10, chap11, chap12, chap13, chap14, chap15, chap16, appa, appb">
 	</target>
 </project>
